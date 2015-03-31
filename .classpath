@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="lib/ansj/ansj_lucene3_plug-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/ansj/ansj_seg-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/ansj/nlp-lang-0.3.jar"/>
+	<classpathentry kind="lib" path="lib/ansj/tree_split-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/jsoup/jsoup-1.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/junit/junit-4.8.2.jar"/>
+	<classpathentry kind="lib" path="lib/libsvm/libsvm.jar"/>
+	<classpathentry kind="lib" path="lib/lucene/lucene-core-3.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/lucene/lucene-highlighter-3.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/lucene/lucene-memory-3.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/lucene/lucene-queries-3.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/lucene/lukeall-3.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/lucene/tika-app-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/mahout/mahout-core-0.5-job.jar"/>
+	<classpathentry kind="lib" path="lib/mahout/mahout-core-0.5.jar"/>
+	<classpathentry kind="lib" path="lib/mahout/mahout-examples-0.5-job.jar"/>
+	<classpathentry kind="lib" path="lib/mahout/mahout-examples-0.5.jar"/>
+	<classpathentry kind="lib" path="lib/mahout/mahout-math-0.5.jar"/>
+	<classpathentry kind="lib" path="lib/mahout/mahout-utils-0.5.jar"/>
+	<classpathentry kind="lib" path="lib/mmseg/mmseg4j-all-1.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/taobao/taobao-sdk-java-online_standard-20141022-source.jar"/>
+	<classpathentry kind="lib" path="lib/taobao/taobao-sdk-java-online_standard-20141022.jar"/>
+	<classpathentry kind="lib" path="lib/weibo/weibo4j-oauth2-3.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/xml/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/xml/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
