@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="lib/weibo/weibo4j-oauth2-3.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/xml/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/xml/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="lib" path="lib/mongodb/mongo-2.10.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
