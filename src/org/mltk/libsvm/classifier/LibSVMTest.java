@@ -9,7 +9,7 @@ import libsvm.svm_problem;
 /**
  * test from web
  * @author 
- *
+ * TODO delete
  */
 public class LibSVMTest {
 
