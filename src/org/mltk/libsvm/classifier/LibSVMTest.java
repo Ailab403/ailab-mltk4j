@@ -6,6 +6,11 @@ import libsvm.svm_node;
 import libsvm.svm_parameter;
 import libsvm.svm_problem;
 
+/**
+ * test from web
+ * @author 
+ *
+ */
 public class LibSVMTest {
 
     /**
