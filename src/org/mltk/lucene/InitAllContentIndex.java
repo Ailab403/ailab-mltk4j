@@ -36,6 +36,7 @@ public class InitAllContentIndex {
 	 */
 	public void execInitContentIndexThread(Analyzer analyzer) {
 
+		// TODO 需要改进成手动传入路径信息
 		this.InitIndexProdData();
 
 		// 创建线程池
