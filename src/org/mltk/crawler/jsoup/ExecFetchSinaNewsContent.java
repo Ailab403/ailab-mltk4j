@@ -36,6 +36,7 @@ public class ExecFetchSinaNewsContent {
 
 	public void execFetchSinaContentThread() {
 
+		// TODO 改成手动传入参数
 		this.initSinaLinks();
 		this.initFileFolderPath();
 
