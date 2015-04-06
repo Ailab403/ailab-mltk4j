@@ -1,4 +1,4 @@
-package org.mltk.libsvm.classifier;
+package org.mltk.libsvm;
 
 import libsvm.svm;
 import libsvm.svm_model;
