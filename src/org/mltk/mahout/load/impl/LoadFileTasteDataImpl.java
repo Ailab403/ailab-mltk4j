@@ -1,11 +1,11 @@
-package org.mltk.mahout.util.load.impl;
+package org.mltk.mahout.load.impl;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.model.DataModel;
-import org.mltk.mahout.util.load.LoadTasteDataModel;
+import org.mltk.mahout.load.LoadTasteDataModel;
 
 public class LoadFileTasteDataImpl implements LoadTasteDataModel {
 

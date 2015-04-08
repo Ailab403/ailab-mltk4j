@@ -1,4 +1,4 @@
-package org.mltk.mahout.util.load;
+package org.mltk.mahout.load;
 
 import java.io.File;
 import java.io.FileInputStream;

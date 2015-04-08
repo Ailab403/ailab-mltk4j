@@ -1,7 +1,7 @@
 package org.mltk.mahout.util;
 
 import org.apache.mahout.cf.taste.model.DataModel;
-import org.mltk.mahout.util.load.impl.LoadFileTasteDataImpl;
+import org.mltk.mahout.load.impl.LoadFileTasteDataImpl;
 
 public class DataModelUtil {
 

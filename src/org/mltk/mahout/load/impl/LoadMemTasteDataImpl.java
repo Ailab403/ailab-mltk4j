@@ -1,4 +1,4 @@
-package org.mltk.mahout.util.load.impl;
+package org.mltk.mahout.load.impl;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -8,7 +8,7 @@ import org.apache.mahout.cf.taste.impl.model.GenericDataModel;
 import org.apache.mahout.cf.taste.impl.model.GenericUserPreferenceArray;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.model.PreferenceArray;
-import org.mltk.mahout.util.load.LoadTasteDataModel;
+import org.mltk.mahout.load.LoadTasteDataModel;
 
 public class LoadMemTasteDataImpl implements LoadTasteDataModel {
 
