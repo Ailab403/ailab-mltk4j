@@ -77,6 +77,7 @@ public class LibSVMTest {
 		double result_normal = svm.svm_predict(model, test); // 测试2 不带概率的分类测试
 		System.out.println("Result with prob " + result_prob);
 		System.out.println("Result normal " + result_normal);
-		System.out.println("Probability " + l[0] + "\t" + l[1]);
+		System.out.println("Probability " + model.label[0] + ": " + l[0] + "\t"
+				+ model.label[1] + ": " + l[1]);
 	}
 }
