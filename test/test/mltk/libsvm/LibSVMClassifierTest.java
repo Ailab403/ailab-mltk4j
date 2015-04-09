@@ -2,10 +2,14 @@ package test.mltk.libsvm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.junit.Test;
+import org.mltk.libsvm.LibSVMClassifier;
+import org.mltk.libsvm.model.ClassifyRes;
 import org.mltk.libsvm.model.TrainDataSet;
 
 public class LibSVMClassifierTest {
@@ -81,7 +85,8 @@ public class LibSVMClassifierTest {
 			}
 		};
 
-		Map<Double, List<String[]>> trainData = new HashMap<Double, List<String[]>>() {
+		// 注意，普通的map不允许key值重复，要使用允许key值重复的特殊map
+		Map<Double, List<String[]>> trainData = new IdentityHashMap<Double, List<String[]>>() {
 			{
 				put(1.0, vector1);
 				put(1.0, vector2);
@@ -98,6 +103,35 @@ public class LibSVMClassifierTest {
 
 	@Test
 	public void testClassifierFromMemory() {
-		
+
+		Map<Integer, Double[]> testDataSet = new HashMap<Integer, Double[]>();
+		Double[] vector = new Double[] { 1.1, 1.0, 1.1, 1.2, 1.3, 0.9 };
+		testDataSet.put(1, vector);
+
+		TrainDataSet trainDataSet = this.createTrainData();
+
+		LibSVMClassifier classifier = new LibSVMClassifier();
+		Map<Integer, ClassifyRes> classifyResMap = classifier.exec(
+				trainDataSet, testDataSet);
+
+		System.out
+				.println("\n--------------------------分界线--------------------------\n");
+
+		for (Entry<Integer, ClassifyRes> resEntry : classifyResMap.entrySet()) {
+
+			ClassifyRes entryRes = resEntry.getValue();
+
+			System.out.println("testIndex:" + resEntry.getKey());
+			System.out.println("normalRes:" + entryRes.getNormalRes()
+					+ " probilityRes:" + entryRes.getProbilityRes());
+
+			Map<Double, Double> probResDistribution = entryRes
+					.getProbResDistribution();
+			for (Entry<Double, Double> distributionEntry : probResDistribution
+					.entrySet()) {
+				System.out.print("label:" + distributionEntry.getKey()
+						+ " probility:" + distributionEntry.getValue() + "; ");
+			}
+		}
 	}
 }

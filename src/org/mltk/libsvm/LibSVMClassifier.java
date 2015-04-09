@@ -56,6 +56,14 @@ public class LibSVMClassifier {
 		trainSet.y = trainLabels;
 		trainSet.l = trainSetSize;
 
+		for (int i = 0; i < trainSpace.length; i++) {
+			System.out.print(trainLabels[i] + ": ");
+			for (int j = 0; j < trainSpace[i].length; j++) {
+				System.out.print(trainSpace[i][j].value + " ");
+			}
+			System.out.println();
+		}
+
 		setClassifyTrainSet(trainSet);
 	}
 
@@ -103,6 +111,9 @@ public class LibSVMClassifier {
 
 			svm_node[] testNode = new svm_node[testNodeVector.length];
 			for (int i = 0; i < testNodeVector.length; i++) {
+				// 不能忘了先对svm_node进行初始化
+				testNode[i] = new svm_node();
+
 				testNode[i].index = i + 1;
 				testNode[i].value = testNodeVector[i];
 			}

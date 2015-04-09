@@ -9,7 +9,7 @@
 	<classpathentry kind="lib" path="lib/ansj/tree_split-1.3.jar"/>
 	<classpathentry kind="lib" path="lib/jsoup/jsoup-1.7.3.jar"/>
 	<classpathentry kind="lib" path="lib/junit/junit-4.8.2.jar"/>
-	<classpathentry kind="lib" path="lib/libsvm/libsvm.jar"/>
+	<classpathentry kind="lib" path="lib/libsvm/libsvm.jar" sourcepath="lib/libsvm/libsvm-3.20/java"/>
 	<classpathentry kind="lib" path="lib/lucene/lucene-core-3.5.0.jar"/>
 	<classpathentry kind="lib" path="lib/lucene/lucene-highlighter-3.5.0.jar"/>
 	<classpathentry kind="lib" path="lib/lucene/lucene-memory-3.5.0.jar"/>
