@@ -94,8 +94,9 @@ public class LibSVMClassifier {
 				this.classifyParame);
 
 		try {
-			svm.svm_save_model("svm_model_file", model);
-			svm.svm_load_model("svm_model_file");
+			// TODO —µ¡∑¥Ê¥¢modelFile∫Õ÷¥––‘§≤‚∑÷¿‡
+			svm.svm_save_model("./file/libsvm/svm_model_file", model);
+			svm.svm_load_model("./file/libsvm/svm_model_file");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
