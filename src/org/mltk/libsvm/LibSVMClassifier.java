@@ -112,7 +112,7 @@ public class LibSVMClassifier {
 
 			svm_node[] testNode = new svm_node[testNodeVector.length];
 			for (int i = 0; i < testNodeVector.length; i++) {
-				// 不能忘了先对svm_node进行初始化
+				// 需先对svm_node进行初始化
 				testNode[i] = new svm_node();
 
 				testNode[i].index = i + 1;

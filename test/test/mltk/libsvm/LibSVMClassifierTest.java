@@ -17,7 +17,11 @@ import org.mltk.libsvm.model.TrainDataSet;
 
 public class LibSVMClassifierTest {
 
-	// 模拟数据集
+	/**
+	 * 模拟数据集
+	 * 
+	 * @return
+	 */
 	public TrainDataSet createTrainData() {
 
 		final String[] vec1Node1 = new String[] { "1", "0" };
