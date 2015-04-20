@@ -2,6 +2,11 @@ package org.mltk.libsvm;
 
 import libsvm.svm_parameter;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class LibSVMParameFactory {
 
 	// svm算法的类型，默认为c_svc

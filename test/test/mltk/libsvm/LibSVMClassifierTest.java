@@ -88,9 +88,9 @@ public class LibSVMClassifierTest {
 		LibSVMParameFactory parameFactory = new LibSVMParameFactory(
 				svm_parameter.C_SVC, svm_parameter.RBF, 1000, 0.0000001, 10, 1,
 				1024);
-		LibSVMClassifier classifier = new LibSVMClassifier();
+		LibSVMClassifier classifier = new LibSVMClassifier(parameFactory);
 		Map<Integer, ClassifyRes> classifyResMap = classifier.exec(
-				trainDataSet, testDataSet, parameFactory);
+				trainDataSet, testDataSet);
 
 		System.out
 				.println("\n--------------------------·Ö½çÏß--------------------------\n");

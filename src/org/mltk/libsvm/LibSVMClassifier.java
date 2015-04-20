@@ -15,12 +15,29 @@ import libsvm.svm_problem;
 import org.mltk.libsvm.model.ClassifyRes;
 import org.mltk.libsvm.model.TrainDataSet;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class LibSVMClassifier {
 
 	// 分类数据集
 	private svm_problem classifyTrainSet;
 	// 分类配置参数
 	private svm_parameter classifyParame;
+
+	private LibSVMParameFactory parameFactory;
+
+	public LibSVMClassifier() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public LibSVMClassifier(LibSVMParameFactory parameFactory) {
+		super();
+		this.parameFactory = parameFactory;
+	}
 
 	// 设置分类训练数据集
 	public void initClassifyTrainData(Map<Double, List<String[]>> trainData,
@@ -136,33 +153,7 @@ public class LibSVMClassifier {
 		return classifyResMap;
 	}
 
-	// LibSVM分类器执行接口，带手动参数工厂的执行方法
-	public Map<Integer, ClassifyRes> exec(TrainDataSet trainDataSet,
-			Map<Integer, Double[]> testDataSet,
-			LibSVMParameFactory parameFactory) {
-
-		Map<Integer, ClassifyRes> classifyResMap = new HashMap<Integer, ClassifyRes>();
-
-		try {
-
-			this.initClassifyTrainData(trainDataSet.getTrainData(),
-					trainDataSet.getTrainSetSize(),
-					trainDataSet.getTrainSetScale());
-			this.initClassifyParame(parameFactory);
-
-			classifyResMap = this.classifyDriver(testDataSet);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-			return null;
-		}
-
-		return classifyResMap;
-	}
-
-	// LibSVM分类器执行接口，不带手动参数工厂的执行方法，配置参数采用默认设置
+	// LibSVM分类器执行接口
 	public Map<Integer, ClassifyRes> exec(TrainDataSet trainDataSet,
 			Map<Integer, Double[]> testDataSet) {
 
@@ -173,8 +164,12 @@ public class LibSVMClassifier {
 			this.initClassifyTrainData(trainDataSet.getTrainData(),
 					trainDataSet.getTrainSetSize(),
 					trainDataSet.getTrainSetScale());
-			LibSVMParameFactory parameFactory = new LibSVMParameFactory();
-			this.initClassifyParame(parameFactory);
+
+			// 如果没有配置parameFactory，新建默认参数的parameFactory
+			if (this.parameFactory == null) {
+				setParameFactory(new LibSVMParameFactory());
+			}
+			this.initClassifyParame(this.parameFactory);
 
 			classifyResMap = this.classifyDriver(testDataSet);
 
@@ -202,6 +197,14 @@ public class LibSVMClassifier {
 
 	public void setClassifyParame(svm_parameter classifyParame) {
 		this.classifyParame = classifyParame;
+	}
+
+	public LibSVMParameFactory getParameFactory() {
+		return parameFactory;
+	}
+
+	public void setParameFactory(LibSVMParameFactory parameFactory) {
+		this.parameFactory = parameFactory;
 	}
 
 }
