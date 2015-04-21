@@ -20,7 +20,7 @@ import org.mltk.libsvm.model.TrainDataSet;
  * @author superhy
  *
  */
-public class LibSVMClassifier {
+public class LibSVMClassifierDemo {
 
 	// 分类数据集
 	private svm_problem classifyTrainSet;
@@ -29,12 +29,12 @@ public class LibSVMClassifier {
 
 	private LibSVMParameFactory parameFactory;
 
-	public LibSVMClassifier() {
+	public LibSVMClassifierDemo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public LibSVMClassifier(LibSVMParameFactory parameFactory) {
+	public LibSVMClassifierDemo(LibSVMParameFactory parameFactory) {
 		super();
 		this.parameFactory = parameFactory;
 	}

@@ -28,8 +28,7 @@ import com.taobao.api.response.TraderatesGetResponse;
 import com.taobao.api.response.UserSellerGetResponse;
 import com.taobao.api.response.WangwangEserviceChatpeersGetResponse;
 
-/**
- */
+@Deprecated
 public class TaobaoTest {
 
 	public static final String url = "http://gw.api.taobao.com/router/rest";
