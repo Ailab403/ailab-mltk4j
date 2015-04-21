@@ -10,6 +10,11 @@ import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.TraderatesGetRequest;
 import com.taobao.api.response.TraderatesGetResponse;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 @Deprecated
 public class TraderatesCrawler {
 

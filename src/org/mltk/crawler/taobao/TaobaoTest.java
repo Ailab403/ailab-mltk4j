@@ -28,6 +28,11 @@ import com.taobao.api.response.TraderatesGetResponse;
 import com.taobao.api.response.UserSellerGetResponse;
 import com.taobao.api.response.WangwangEserviceChatpeersGetResponse;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 @Deprecated
 public class TaobaoTest {
 

@@ -15,6 +15,11 @@ import libsvm.svm_problem;
 import org.mltk.libsvm.model.ClassifyRes;
 import org.mltk.libsvm.model.TrainDataSet;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class LibSVMClassifierTrain {
 
 	// 分类数据集

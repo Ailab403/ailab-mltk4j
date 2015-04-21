@@ -2,6 +2,11 @@ package org.mltk.libsvm.model;
 
 import java.util.Arrays;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class TestDataItem {
 
 	// ÏòÁ¿id

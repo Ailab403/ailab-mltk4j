@@ -11,6 +11,11 @@ import libsvm.svm_problem;
 import org.mltk.libsvm.model.ClassifyRes;
 import org.mltk.libsvm.model.TestDataItem;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class LibSVMClassifierForecast {
 
 	// 分类数据集
