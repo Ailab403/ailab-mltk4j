@@ -10,6 +10,7 @@ import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.TraderatesGetRequest;
 import com.taobao.api.response.TraderatesGetResponse;
 
+@Deprecated
 public class TraderatesCrawler {
 
 	public String getTradeRatesXML(String fields, String rate_type,

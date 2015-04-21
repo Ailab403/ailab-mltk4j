@@ -10,12 +10,12 @@ import java.util.Map.Entry;
 import libsvm.svm_parameter;
 
 import org.junit.Test;
-import org.mltk.libsvm.LibSVMClassifier;
+import org.mltk.libsvm.LibSVMClassifierDemo;
 import org.mltk.libsvm.LibSVMParameFactory;
 import org.mltk.libsvm.model.ClassifyRes;
 import org.mltk.libsvm.model.TrainDataSet;
 
-public class LibSVMClassifierTest {
+public class LibSVMClassifierDemoTest {
 
 	/**
 	 * 模拟数据集
@@ -88,7 +88,7 @@ public class LibSVMClassifierTest {
 		LibSVMParameFactory parameFactory = new LibSVMParameFactory(
 				svm_parameter.C_SVC, svm_parameter.RBF, 1000, 0.0000001, 10, 1,
 				1024);
-		LibSVMClassifier classifier = new LibSVMClassifier(parameFactory);
+		LibSVMClassifierDemo classifier = new LibSVMClassifierDemo(parameFactory);
 		Map<Integer, ClassifyRes> classifyResMap = classifier.exec(
 				trainDataSet, testDataSet);
 
