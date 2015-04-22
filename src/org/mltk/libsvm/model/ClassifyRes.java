@@ -5,6 +5,11 @@ import java.util.Map;
 
 import libsvm.svm_model;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class ClassifyRes {
 
 	// 分类结果对应的向量id

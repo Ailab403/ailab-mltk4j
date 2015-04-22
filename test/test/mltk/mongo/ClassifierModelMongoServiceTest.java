@@ -5,6 +5,11 @@ import org.mltk.mongo.MongoDbBean;
 
 import com.mongodb.DB;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class ClassifierModelMongoServiceTest {
 
 	@Test
