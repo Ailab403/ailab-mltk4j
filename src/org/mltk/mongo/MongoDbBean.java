@@ -18,7 +18,7 @@ import com.mongodb.Mongo;
  * @author superhy
  * 
  */
-public class MongoDefaultDbBean {
+public class MongoDbBean {
 
 	// 建立MongoDB数据库链接对象
 	public static Mongo mongoConnection = null;
@@ -27,14 +27,14 @@ public class MongoDefaultDbBean {
 
 	// 单例模式，静态内部类
 	private static class MongoDbBeanHolder {
-		private static final MongoDefaultDbBean MONGO_DB_BEAN = new MongoDefaultDbBean();
+		private static final MongoDbBean MONGO_DB_BEAN = new MongoDbBean();
 	}
 
-	private MongoDefaultDbBean() {
+	private MongoDbBean() {
 		try {
 			if (mongoConnection == null || dbConnection == null) {
 				String connectHost = "127.0.0.1:27017";
-				String dbName = "ailab-mltk";
+				String dbName = MongoParamCache.dbName;
 
 				this.mongoConnection = new Mongo(connectHost);
 				this.dbConnection = mongoConnection.getDB(dbName);
@@ -45,8 +45,23 @@ public class MongoDefaultDbBean {
 		}
 	}
 
-	// 返回类实体
-	public static final MongoDefaultDbBean getMongoDbBean() {
+	/**
+	 * 返回类实体（默认）
+	 * 
+	 * @return
+	 */
+	public static final MongoDbBean getMongoDbBean() {
+		return MongoDbBeanHolder.MONGO_DB_BEAN;
+	}
+
+	/**
+	 * 返回类实体（指定数据库名）
+	 * 
+	 * @param dbName
+	 * @return
+	 */
+	public static final MongoDbBean getMongoDbBean(String dbName) {
+		MongoParamCache.dbName = dbName;
 		return MongoDbBeanHolder.MONGO_DB_BEAN;
 	}
 

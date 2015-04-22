@@ -7,6 +7,9 @@ import libsvm.svm_model;
 
 public class ClassifyRes {
 
+	// 分类结果对应的向量id
+	private String vecId;
+
 	// 概率化分类结果
 	private double probilityRes;
 	// 常规分类结果（投票分类结果）
@@ -23,13 +26,22 @@ public class ClassifyRes {
 	// 整理形成概率化结果的分布
 	public void prodResDistribution(svm_model trainModel,
 			double[] basicDistribution) {
-		
+
 		Map<Double, Double> resDistribution = new HashMap<Double, Double>();
 		for (int i = 0; i < basicDistribution.length; i++) {
-			resDistribution.put((double) trainModel.label[i], basicDistribution[i]);
+			resDistribution.put((double) trainModel.label[i],
+					basicDistribution[i]);
 		}
-		
+
 		setProbResDistribution(resDistribution);
+	}
+
+	public String getVecId() {
+		return vecId;
+	}
+
+	public void setVecId(String vecId) {
+		this.vecId = vecId;
 	}
 
 	public double getProbilityRes() {

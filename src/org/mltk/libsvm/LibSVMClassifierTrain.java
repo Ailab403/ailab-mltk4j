@@ -23,7 +23,7 @@ import org.mltk.libsvm.model.TrainDataSet;
 public class LibSVMClassifierTrain {
 
 	// 分类数据集
-	private svm_problem classifyTrainSet;
+	private svm_problem classifyTrainEntity;
 	// 分类配置参数
 	private svm_parameter classifyParame;
 
@@ -81,7 +81,7 @@ public class LibSVMClassifierTrain {
 			System.out.println();
 		}
 
-		setClassifyTrainSet(trainSet);
+		setClassifyTrainEntity(trainSet);
 	}
 
 	// 设置分类配置参数
@@ -90,7 +90,7 @@ public class LibSVMClassifierTrain {
 
 		svm_parameter svmParame = parameFactory.prodLibSVMParam();
 		// 检查参数设置是否合法
-		String parameError = svm.svm_check_parameter(getClassifyTrainSet(),
+		String parameError = svm.svm_check_parameter(getClassifyTrainEntity(),
 				svmParame);
 		if (parameError != null) {
 			System.err.println("参数设置错误! " + parameError);
@@ -104,7 +104,7 @@ public class LibSVMClassifierTrain {
 	public svm_model classifierTrainDriver(String svmModelDiskPath) {
 
 		// 训练分类模型
-		svm_model model = svm.svm_train(this.classifyTrainSet,
+		svm_model model = svm.svm_train(this.classifyTrainEntity,
 				this.classifyParame);
 
 		try {
@@ -145,12 +145,12 @@ public class LibSVMClassifierTrain {
 		return classifyResMap;
 	}
 
-	public svm_problem getClassifyTrainSet() {
-		return classifyTrainSet;
+	public svm_problem getClassifyTrainEntity() {
+		return classifyTrainEntity;
 	}
 
-	public void setClassifyTrainSet(svm_problem classifyTrainData) {
-		this.classifyTrainSet = classifyTrainData;
+	public void setClassifyTrainEntity(svm_problem classifyTrainData) {
+		this.classifyTrainEntity = classifyTrainData;
 	}
 
 	public svm_parameter getClassifyParame() {

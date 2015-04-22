@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mltk.mongo.MongoDefaultDbBean;
+import org.mltk.mongo.MongoDbBean;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -19,7 +19,7 @@ public class ClassifierModelMongoServiceImpl {
 	 */
 	public void createNewColl(String collectionName) {
 
-		MongoDefaultDbBean mongoDbBean = MongoDefaultDbBean.getMongoDbBean();
+		MongoDbBean mongoDbBean = MongoDbBean.getMongoDbBean();
 		boolean createCollRes = mongoDbBean.createNewCollection(collectionName);
 
 		if (createCollRes == true) {
@@ -60,7 +60,7 @@ public class ClassifierModelMongoServiceImpl {
 		vecDbs.put("featrues", featruesDbsList);
 
 		// 存储
-		MongoDefaultDbBean mongoDbBean = MongoDefaultDbBean.getMongoDbBean();
+		MongoDbBean mongoDbBean = MongoDbBean.getMongoDbBean();
 		mongoDbBean.insert(vecDbs, collectionName);
 	}
 
@@ -75,7 +75,7 @@ public class ClassifierModelMongoServiceImpl {
 		// 指定返回的向量数据
 		List<Map<String, Object>> vectorsInColl = new ArrayList<Map<String, Object>>();
 
-		MongoDefaultDbBean mongoDbBean = MongoDefaultDbBean.getMongoDbBean();
+		MongoDbBean mongoDbBean = MongoDbBean.getMongoDbBean();
 		for (DBObject vecDbs : mongoDbBean.findByKeyAndRef(null, null,
 				collectionName)) {
 			vectorsInColl.add(vecDbs.toMap());
@@ -97,7 +97,7 @@ public class ClassifierModelMongoServiceImpl {
 		// 准备返回的向量数据
 		Map<String, Object> vectorInColl = new HashMap<String, Object>();
 
-		MongoDefaultDbBean mongoDbBean = MongoDefaultDbBean.getMongoDbBean();
+		MongoDbBean mongoDbBean = MongoDbBean.getMongoDbBean();
 		// 添加查询条件
 		DBObject ref = new BasicDBObject();
 		ref.put("vecId", vecId);

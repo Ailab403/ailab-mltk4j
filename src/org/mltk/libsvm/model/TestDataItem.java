@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class TestDataItem {
 
-	// 向量id
+	// 待测向量id
 	private String vecId;
 
 	private Double[] testData;
