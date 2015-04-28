@@ -1,7 +1,6 @@
 package org.mltk.libsvm;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -12,7 +11,6 @@ import libsvm.svm_node;
 import libsvm.svm_parameter;
 import libsvm.svm_problem;
 
-import org.mltk.libsvm.model.ClassifyRes;
 import org.mltk.libsvm.model.TrainDataSet;
 
 /**
@@ -39,7 +37,14 @@ public class LibSVMClassifierTrain {
 		this.parameFactory = parameFactory;
 	}
 
-	// 设置分类训练数据集
+	/**
+	 * 设置分类训练数据集
+	 * 
+	 * @param trainData
+	 * @param trainSetSize
+	 * @param trainSetScale
+	 * @throws Exception
+	 */
 	public void initClassifyTrainData(Map<Double, List<String[]>> trainData,
 			Integer trainSetSize, Integer trainSetScale) throws Exception {
 
@@ -84,7 +89,12 @@ public class LibSVMClassifierTrain {
 		setClassifyTrainEntity(trainSet);
 	}
 
-	// 设置分类配置参数
+	/**
+	 * 设置分类配置参数
+	 * 
+	 * @param parameFactory
+	 * @throws Exception
+	 */
 	public void initClassifyParame(LibSVMParameFactory parameFactory)
 			throws Exception {
 
@@ -100,7 +110,12 @@ public class LibSVMClassifierTrain {
 		setClassifyParame(parameFactory.prodLibSVMParam());
 	}
 
-	// LibSVM分类器训练主方法
+	/**
+	 * LibSVM分类器训练主方法
+	 * 
+	 * @param svmModelDiskPath
+	 * @return
+	 */
 	public svm_model classifierTrainDriver(String svmModelDiskPath) {
 
 		// 训练分类模型
@@ -118,10 +133,13 @@ public class LibSVMClassifierTrain {
 		return model;
 	}
 
-	// LibSVM分类器执行接口
-	public Map<Integer, ClassifyRes> exec(TrainDataSet trainDataSet) {
-
-		Map<Integer, ClassifyRes> classifyResMap = new HashMap<Integer, ClassifyRes>();
+	/**
+	 * LibSVM分类器执行接口
+	 * 
+	 * @param trainDataSet
+	 * @return
+	 */
+	public boolean exec(String svmModelDiskPath, TrainDataSet trainDataSet) {
 
 		try {
 
@@ -135,14 +153,16 @@ public class LibSVMClassifierTrain {
 			}
 			this.initClassifyParame(this.parameFactory);
 
+			this.classifierTrainDriver(svmModelDiskPath);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 
-			return null;
+			return false;
 		}
 
-		return classifyResMap;
+		return true;
 	}
 
 	public svm_problem getClassifyTrainEntity() {

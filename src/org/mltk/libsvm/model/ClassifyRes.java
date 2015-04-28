@@ -73,4 +73,11 @@ public class ClassifyRes {
 		this.probResDistribution = probResDistribution;
 	}
 
+	@Override
+	public String toString() {
+		return "ClassifyRes [vecId=" + vecId + ", probilityRes=" + probilityRes
+				+ ", normalRes=" + normalRes + ", probResDistribution="
+				+ probResDistribution + "]";
+	}
+
 }
