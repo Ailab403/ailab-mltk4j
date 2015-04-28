@@ -6,6 +6,11 @@ import java.util.List;
 import org.junit.Test;
 import org.mltk.mongo.service.ClassifierModelMongoService;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class LoadClassifyDataModelTest {
 
 	/**

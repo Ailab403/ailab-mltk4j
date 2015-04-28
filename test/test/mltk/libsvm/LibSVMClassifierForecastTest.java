@@ -5,6 +5,11 @@ import org.mltk.libsvm.LibSVMClassifierForecast;
 import org.mltk.libsvm.model.ClassifyRes;
 import org.mltk.libsvm.model.TestDataItem;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class LibSVMClassifierForecastTest {
 
 	@Test

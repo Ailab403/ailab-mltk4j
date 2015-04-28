@@ -1,5 +1,10 @@
 package org.mltk.task.io;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class TransTextToClassifierMongoModel {
 
 	// TODO

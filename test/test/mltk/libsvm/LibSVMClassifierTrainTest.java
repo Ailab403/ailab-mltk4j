@@ -12,6 +12,11 @@ import org.mltk.libsvm.LibSVMClassifierTrain;
 import org.mltk.libsvm.LibSVMParameFactory;
 import org.mltk.libsvm.model.TrainDataSet;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class LibSVMClassifierTrainTest {
 
 	/**
