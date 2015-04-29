@@ -31,4 +31,5 @@
 	<classpathentry kind="lib" path="lib/mongodb/mongo-2.10.1.jar"/>
 	<classpathentry kind="lib" path="lib/mongo/mongo-2.10.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
+	
 </classpath>
