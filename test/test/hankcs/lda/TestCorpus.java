@@ -47,18 +47,20 @@ public class TestCorpus {
 		LdaGibbsSampler ldaGibbsSampler = new LdaGibbsSampler(
 				corpus.getDocument(), corpus.getVocabularySize());
 		// 3. Train it
-		ldaGibbsSampler.gibbs(10);
+		ldaGibbsSampler.gibbs(20);
 		// 4. The phi matrix is a LDA model, you can use LdaUtil to explain it.
 		double[][] phi = ldaGibbsSampler.getPhi();
 		Map<String, Double>[] topicMap = LdaUtil.translate(phi,
-				corpus.getVocabulary(), 25);
+				corpus.getVocabulary(), 50);
 		LdaUtil.explain(topicMap);
+		
+		
 		// 5. TODO:Predict. I'm not sure whether it works, it is not stable.
 		int[] document = Corpus.loadDocument("./file/lda/mini/军事_500.txt",
 				corpus.getVocabulary());
 		double[] tp = LdaGibbsSampler.inference(phi, document);
 		Map<String, Double> topic = LdaUtil.translate(tp, phi,
-				corpus.getVocabulary(), 25);
+				corpus.getVocabulary(), 250);
 		LdaUtil.explain(topic);
 	}
 }
