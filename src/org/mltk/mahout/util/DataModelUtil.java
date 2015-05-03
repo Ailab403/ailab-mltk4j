@@ -12,7 +12,7 @@ public class DataModelUtil {
 	 * @param filePath
 	 * @return
 	 */
-	public static DataModel loadDataModelFromFile(String filePath) {
+	public static DataModel loadTasteDataFromFile(String filePath) {
 
 		// 从磁盘文件中载入数据
 		DataModel fileModel = new LoadFileTasteDataImpl(filePath)
@@ -20,4 +20,6 @@ public class DataModelUtil {
 
 		return fileModel;
 	}
+	
+	// TODO 从内存中读取术后据模型
 }

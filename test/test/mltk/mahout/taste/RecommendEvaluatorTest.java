@@ -15,7 +15,7 @@ public class RecommendEvaluatorTest {
 
 		NearestUserNeighborhoodRecommendImpl testObj = new NearestUserNeighborhoodRecommendImpl(
 				3, true);
-		testObj.setModel(DataModelUtil.loadDataModelFromFile(filePath));
+		testObj.setModel(DataModelUtil.loadTasteDataFromFile(filePath));
 
 		TasteEvalScore tasteEvalScore = RecommendEvaluator.recommenderEvalProd(
 				testObj.getModel(), testObj, 2, 0.8, true);
@@ -30,7 +30,7 @@ public class RecommendEvaluatorTest {
 		String filePath = ".\\file\\recom\\intro.csv";
 
 		SlopeOneRecommendImpl testObj = new SlopeOneRecommendImpl();
-		testObj.setModel(DataModelUtil.loadDataModelFromFile(filePath));
+		testObj.setModel(DataModelUtil.loadTasteDataFromFile(filePath));
 
 		TasteEvalScore tasteEvalScore = RecommendEvaluator.recommenderEvalProd(
 				testObj.getModel(), testObj, 2, 0.8, true);

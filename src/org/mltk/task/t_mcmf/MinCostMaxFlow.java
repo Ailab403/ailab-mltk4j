@@ -1,4 +1,4 @@
-package org.mltk.task.sentiment;
+package org.mltk.task.t_mcmf;
 
 import java.util.LinkedList;
 import java.util.Queue;

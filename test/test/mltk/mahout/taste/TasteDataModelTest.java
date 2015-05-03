@@ -16,7 +16,7 @@ public class TasteDataModelTest {
 
 		NearestUserNeighborhoodRecommendImpl testObj = new NearestUserNeighborhoodRecommendImpl(
 				1, true);
-		testObj.setModel(DataModelUtil.loadDataModelFromFile(filePath));
+		testObj.setModel(DataModelUtil.loadTasteDataFromFile(filePath));
 		List<RecommendedItem> recItems = testObj.exec(4, 10);
 		for (RecommendedItem recommendedItem : recItems) {
 			System.out.println(recommendedItem.getItemID() + "->"
@@ -29,7 +29,7 @@ public class TasteDataModelTest {
 		String filePath = ".\\file\\recom\\intro.csv";
 
 		SlopeOneRecommendImpl testObj = new SlopeOneRecommendImpl();
-		testObj.setModel(DataModelUtil.loadDataModelFromFile(filePath));
+		testObj.setModel(DataModelUtil.loadTasteDataFromFile(filePath));
 		List<RecommendedItem> recItems = testObj.exec(4, 10);
 		for (RecommendedItem recommendedItem : recItems) {
 			System.out.println(recommendedItem.getItemID() + "->"

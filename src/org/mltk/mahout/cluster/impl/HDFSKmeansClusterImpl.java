@@ -19,7 +19,7 @@ import org.apache.mahout.math.Vector;
 import org.mltk.mahout.cluster.ClusterDataModel;
 import org.mltk.mahout.cluster.ClusterPreUtil;
 import org.mltk.mahout.cluster.DataDistanceFactory;
-import org.mltk.mahout.load.FileDocumentIOManagement;
+import org.mltk.task.util.FileDocumentIOManagement;
 
 /**
  * HDFS文件的形式处理Kmeans算法实现
