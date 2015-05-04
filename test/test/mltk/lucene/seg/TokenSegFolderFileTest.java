@@ -18,8 +18,8 @@ public class TokenSegFolderFileTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		String oriFolderPath = "D:\\mywork\\nlp_cache\\pos";
-		String tagFolderPath = "D:\\mywork\\nlp_cache\\pos-seg";
+		String oriFolderPath = ".\\file\\sentiment\\ori\\dianying\\pos";
+		String tagFolderPath = ".\\file\\sentiment\\seg\\dianying\\pos";
 
 		Analyzer a = new AnsjAnalysis();
 		TokenSegFolderFileMP tokenSegFolderFile = new TokenSegFolderFileMP(a);
@@ -28,8 +28,8 @@ public class TokenSegFolderFileTest {
 
 	@Test
 	public void testTokenSegFolderFileRecursion() {
-		String oriFolderPath = "D:\\mywork\\nlp_cache\\dianying";
-		String tagFolderPath = "D:\\mywork\\nlp_cache\\seg";
+		String oriFolderPath = ".\\file\\sentiment\\ori\\dianzi";
+		String tagFolderPath = ".\\file\\sentiment\\seg";
 
 		Analyzer a = new AnsjAnalysis();
 		TokenSegFolderFileRecursion tokenSegFolderFileRecursion = new TokenSegFolderFileRecursion(
@@ -42,11 +42,12 @@ public class TokenSegFolderFileTest {
 	@Test
 	public void testCountWordNum() throws Exception {
 
-		String segFolderPath = "D:\\mywork\\nlp_cache\\pos-seg";
+		String segFolderPath = ".\\file\\sentiment\\seg\\dianying\\pos";
 
 		File folder = new File(segFolderPath);
 		Set<Word> wordSet = new HashSet<Word>();
 		for (File file : folder.listFiles()) {
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = br.readLine()) != null) {

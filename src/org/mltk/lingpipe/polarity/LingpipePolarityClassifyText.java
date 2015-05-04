@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.mltk.lingpipe.model.PolarityRes;
+
 import com.aliasi.classify.JointClassification;
 import com.aliasi.classify.LMClassifier;
 import com.aliasi.util.AbstractExternalizable;
@@ -51,10 +53,10 @@ public class LingpipePolarityClassifyText {
 		}
 	}
 
-	public List<Map<String, Object>> polarityClassifyText() {
+	public List<PolarityRes> polarityClassifyText() {
 
-		// 准备返回数据
-		List<Map<String, Object>> polarityClassifyResMaps = new ArrayList<Map<String, Object>>();
+		// 准备要返回的结果
+		List<PolarityRes> polarityResList = new ArrayList<PolarityRes>();
 
 		// TODO delete print
 		System.out.println("正在载入极性分类模型，请稍等...");
@@ -89,12 +91,13 @@ public class LingpipePolarityClassifyText {
 						+ bestCategory + "\n分类得分：\n" + polarityScore
 						+ "\n分类细节：\n" + classification.toString());
 
-				polarityResMap.put("fileName", testFile.getName());
-				polarityResMap.put("polarityScore", polarityScore);
-				polarityClassifyResMaps.add(polarityResMap);
+				PolarityRes polarityRes = new PolarityRes(testFile.getName(),
+						bestCategory, polarityScore);
+
+				polarityResList.add(polarityRes);
 			}
 
-			return polarityClassifyResMaps;
+			return polarityResList;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

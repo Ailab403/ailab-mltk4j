@@ -42,16 +42,16 @@ public class TestCorpus {
 	@Test
 	public void testAll() throws Exception {
 		// 1. Load corpus from disk
-		Corpus corpus = Corpus.load("D:\\mywork\\nlp_cache\\neg-seg");
+		Corpus corpus = Corpus.load(".\\file\\sentiment\\seg\\dianying\\pos");
 		// 2. Create a LDA sampler
 		LdaGibbsSampler ldaGibbsSampler = new LdaGibbsSampler(
 				corpus.getDocument(), corpus.getVocabularySize());
 		// 3. Train it
-		ldaGibbsSampler.gibbs(5);
+		ldaGibbsSampler.gibbs(10);
 		// 4. The phi matrix is a LDA model, you can use LdaUtil to explain it.
 		double[][] phi = ldaGibbsSampler.getPhi();
 		Map<String, Double>[] topicMap = LdaUtil.translate(phi,
-				corpus.getVocabulary(), 50);
+				corpus.getVocabulary(), 200);
 		LdaUtil.explain(topicMap);
 
 		// 5. TODO:Predict. I'm not sure whether it works, it is not stable.
