@@ -11,17 +11,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.mltk.lucene.cache.IndexDirectoryLocPath;
 
 public class InitAllContentIndex {
 
 	private List<File> fileList;
 	private String allIndexPath;
 
-	public void InitIndexProdData() {
-		setAllIndexPath(IndexDirectoryLocPath.ALL_INDEX);
+	public void InitIndexProdData(String fileDirPath, String indexPath) {
+		setAllIndexPath(indexPath);
 
-		File fileFolder = new File(IndexDirectoryLocPath.FILE_EXAMPLE);
+		File fileFolder = new File(fileDirPath);
 		List<File> fileList = new ArrayList<File>();
 		for (File f : fileFolder.listFiles()) {
 			fileList.add(f);
@@ -34,10 +33,11 @@ public class InitAllContentIndex {
 	 * 
 	 * @param analyzer
 	 */
-	public void execInitContentIndexThread(Analyzer analyzer) {
+	public void execInitContentIndexThread(Analyzer analyzer,
+			String fileDirPath, String indexPath) {
 
-		// TODO 需要改进成手动传入路径信息
-		this.InitIndexProdData();
+		// 需要改进成手动传入路径信息
+		this.InitIndexProdData(fileDirPath, indexPath);
 
 		// 创建线程池
 		ExecutorService exes = Executors.newFixedThreadPool(5);

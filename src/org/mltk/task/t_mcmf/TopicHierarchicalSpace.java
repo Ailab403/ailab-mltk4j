@@ -2,9 +2,9 @@ package org.mltk.task.t_mcmf;
 
 import java.util.List;
 
-import org.mltk.hankcs.lda.model.LdaDoc;
-import org.mltk.hankcs.lda.model.LdaTopic;
-import org.mltk.hankcs.lda.model.LdaWord;
+import org.mltk.task.t_mcmf.model.LdaDoc;
+import org.mltk.task.t_mcmf.model.LdaTopic;
+import org.mltk.task.t_mcmf.model.LdaWord;
 
 public class TopicHierarchicalSpace {
 
@@ -18,6 +18,13 @@ public class TopicHierarchicalSpace {
 		LdaDoc ldaDoc;
 		LdaTopic ldaTopic;
 		double arcWeight;
+
+		public dtArc(LdaDoc ldaDoc, LdaTopic ldaTopic, double arcWeight) {
+			super();
+			this.ldaDoc = ldaDoc;
+			this.ldaTopic = ldaTopic;
+			this.arcWeight = arcWeight;
+		}
 
 		@Override
 		public String toString() {

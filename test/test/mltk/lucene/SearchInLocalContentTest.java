@@ -16,6 +16,8 @@ public class SearchInLocalContentTest {
 	public void testPhraseQuerySearcher() {
 		org.mltk.lucene.SearchInLocalContent searchInLocalContent = new SearchInLocalContent(
 				IndexDirectoryLocPath.ALL_INDEX);
+		
+		System.out.println(searchInLocalContent.getFlagAndSearch());
 
 		String keyValue = new Scanner(System.in).next();
 

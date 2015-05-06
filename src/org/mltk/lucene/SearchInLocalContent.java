@@ -26,6 +26,30 @@ public class SearchInLocalContent {
 	private Directory directory;
 	private IndexReader reader;
 
+	// 选择是否与查询
+	private Boolean flagAndSearch = false;
+
+	/**
+	 * 载入内存中的索引
+	 * 
+	 * @param directory
+	 */
+	public SearchInLocalContent(Directory directory) {
+		super();
+		this.directory = directory;
+	}
+
+	public SearchInLocalContent(Directory directory, Boolean flagAndSearch) {
+		super();
+		this.directory = directory;
+		this.flagAndSearch = flagAndSearch;
+	}
+
+	/**
+	 * 载入磁盘上的索引
+	 * 
+	 * @param indexPath
+	 */
 	public SearchInLocalContent(String indexPath) {
 		super();
 		try {
@@ -36,6 +60,19 @@ public class SearchInLocalContent {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public SearchInLocalContent(String indexPath, Boolean flagAndSearch) {
+		super();
+		try {
+
+			// 创建索引到硬盘当中
+			directory = FSDirectory.open(new File(indexPath));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.flagAndSearch = flagAndSearch;
 	}
 
 	// 获取查询器
@@ -88,7 +125,11 @@ public class SearchInLocalContent {
 			QueryParser parser = new QueryParser(Version.LUCENE_35,
 					"textContent", analyzer);
 			// 设定布尔操作为"或"操作
-			parser.setDefaultOperator(QueryParser.OR_OPERATOR);
+			if (this.flagAndSearch == true) {
+				parser.setDefaultOperator(QueryParser.AND_OPERATOR);
+			} else {
+				parser.setDefaultOperator(QueryParser.OR_OPERATOR);
+			}
 			// 创建query表示搜索域为content包含制定的文档，使用短语查询
 			Query query = parser.parse(value);
 
@@ -105,7 +146,7 @@ public class SearchInLocalContent {
 				// 根据seacher和ScoreDoc对象获取具体的Documnet对象
 				Document d = searcher.doc(sd.doc);
 
-				// TODO delete print 
+				// TODO delete print
 				// 根据Documnet对象获取需要的值
 				// System.out.println(d.get("collectionName") + "["
 				// + d.get("postUrlMD5") + "]");
@@ -131,4 +172,29 @@ public class SearchInLocalContent {
 
 		return searchResults;
 	}
+
+	public Directory getDirectory() {
+		return directory;
+	}
+
+	public void setDirectory(Directory directory) {
+		this.directory = directory;
+	}
+
+	public IndexReader getReader() {
+		return reader;
+	}
+
+	public void setReader(IndexReader reader) {
+		this.reader = reader;
+	}
+
+	public Boolean getFlagAndSearch() {
+		return flagAndSearch;
+	}
+
+	public void setFlagAndSearch(Boolean flagAndSearch) {
+		this.flagAndSearch = flagAndSearch;
+	}
+
 }
