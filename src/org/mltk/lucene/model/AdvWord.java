@@ -13,8 +13,7 @@ public class AdvWord extends Word {
 	}
 
 	public AdvWord(String wordText, String wordTag) {
-		super();
-		super.wordText = wordText;
+		super(wordText);
 		this.wordTag = wordTag;
 	}
 
