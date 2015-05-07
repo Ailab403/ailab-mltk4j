@@ -1,9 +1,10 @@
 package org.mltk.task.t_mcmf;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.mltk.task.t_mcmf.model.LdaGraph;
 import org.mltk.task.t_mcmf.model.LdaTopic;
-import org.mltk.task.t_mcmf.model.LdaWord;
 
 public class CrossDomainInfSpace {
 
@@ -32,7 +33,7 @@ public class CrossDomainInfSpace {
 		}
 	}
 
-	private List<miArc> miArcs;
+	private List<miArc> miArcs = new ArrayList<CrossDomainInfSpace.miArc>();
 
 	public CrossDomainInfSpace() {
 		super();
@@ -55,6 +56,25 @@ public class CrossDomainInfSpace {
 	@Override
 	public String toString() {
 		return "CrossDomainInfSpace [miArcs=" + miArcs + "]";
+	}
+
+	/**
+	 * 从主题节点上建立互信息跨领域空间
+	 * 
+	 * @param sLdaGraph
+	 * @param tLdaGraph
+	 */
+	public void buildSpace(LdaGraph sLdaGraph, LdaGraph tLdaGraph) {
+
+		System.out.println("正在计算网络信息量...");
+
+		MI mi = new MI();
+		for (LdaTopic sTopic : sLdaGraph.allTopics) {
+			for (LdaTopic tTopic : tLdaGraph.allTopics) {
+				double arcWeight = mi.compTopicsMI(sTopic, tTopic);
+				this.miArcs.add(new miArc(sTopic, tTopic, arcWeight));
+			}
+		}
 	}
 
 }

@@ -1,5 +1,9 @@
 package org.mltk.task.t_mcmf;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.mltk.lucene.SearchInLocalContent;
 import org.mltk.lucene.model.Word;
@@ -34,9 +38,32 @@ public class MI {
 		return MutualInfomation;
 	}
 
-	// TODO
 	public double compTopicsMI(LdaTopic topic1, LdaTopic topic2) {
-		return corpusNum;
+
+		Map<Integer, Double> topic1GenWord = topic1.generateWords;
+		Map<Integer, Double> topic2GenWord = topic2.generateWords;
+
+		Set<Integer> allSet = new HashSet<Integer>();
+		int sameNum = 0;
+		Set<Integer> topic1Set = topic1GenWord.keySet();
+		Set<Integer> topic2Set = topic2GenWord.keySet();
+		for (Integer wordId : topic1Set) {
+			if (topic2Set.contains(wordId)) {
+				sameNum++;
+			}
+		}
+		for (Integer word1Id : topic1Set) {
+			allSet.add(word1Id);
+			for (Integer word2Id : topic2Set) {
+				allSet.add(word2Id);
+			}
+		}
+		int allNum = allSet.size();
+
+		double MutualInfomation = sameNum < allNum ? (sameNum * 1.0 / allNum)
+				: 1;
+
+		return MutualInfomation;
 
 	}
 

@@ -176,6 +176,9 @@ public class LDALevelModel {
 
 		LdaGraph levelGraph;
 		try {
+			
+			System.out.println("正在统计层次关系...");
+			
 			levelGraph = this.buildLdaGraph(this.corpusPath, topicMap);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

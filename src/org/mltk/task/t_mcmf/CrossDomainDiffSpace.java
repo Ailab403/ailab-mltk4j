@@ -1,5 +1,6 @@
 package org.mltk.task.t_mcmf;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mltk.task.t_mcmf.model.LdaGraph;
@@ -14,9 +15,9 @@ public class CrossDomainDiffSpace {
 	 *
 	 */
 	class klArc {
-		LdaTopic sWord;
-		LdaTopic tWord;
-		double arcCost;
+		public LdaTopic sWord;
+		public LdaTopic tWord;
+		public double arcCost;
 
 		public klArc(LdaTopic sWord, LdaTopic tWord, double arcCost) {
 			super();
@@ -32,7 +33,7 @@ public class CrossDomainDiffSpace {
 		}
 	}
 
-	private List<klArc> klArcs;
+	private List<klArc> klArcs = new ArrayList<CrossDomainDiffSpace.klArc>();
 
 	public CrossDomainDiffSpace() {
 		super();
@@ -58,15 +59,15 @@ public class CrossDomainDiffSpace {
 	}
 
 	/**
-	 * 从主题层节点上转移kl散度到特征层节点上
+	 * 从主题层节点上建立kl散度跨领域空间
 	 * 
 	 * @param sTopic
 	 * @param tTopic
 	 * @param kl
 	 */
-	public void transKltoWords(LdaGraph sLdaGraph, LdaGraph tLdaGraph) {
+	public void buildSpace(LdaGraph sLdaGraph, LdaGraph tLdaGraph) {
 
-		System.out.println("正在转移网络代价值。。。");
+		System.out.println("正在计算网络代价值...");
 
 		// kl散度计算工具类
 		KLDivergence klDivergence = new KLDivergence();

@@ -2,6 +2,11 @@ package org.mltk.task.t_mcmf;
 
 import java.util.Scanner;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class MinCostMaxFlow {
 
 	static double INF = 0xffffff * 1.0;

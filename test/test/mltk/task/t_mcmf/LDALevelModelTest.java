@@ -14,8 +14,8 @@ public class LDALevelModelTest {
 	@Test
 	public void testGetLevelGraph() {
 
-		String CORPUS_PATH = ".\\file\\sentiment\\seg\\dianying\\pos";
-		int topicNum = 10;
+		String CORPUS_PATH = ".\\file\\sentiment\\seg\\dianyingall";
+		int topicNum = 200;
 		int genWordNum = 100;
 
 		LDALevelModel ldaLevelModel = new LDALevelModel(CORPUS_PATH, topicNum,
@@ -33,7 +33,28 @@ public class LDALevelModelTest {
 		for (LdaTopic topic : ldaTopics) {
 			System.out.println("生成词条数目：" + topic.generateWords.size());
 		}
-		
-		System.out.println(AllLdaItemSet.topicsNum + " " + AllLdaItemSet.docsNum);
+
+		CORPUS_PATH = ".\\file\\sentiment\\seg\\dianziall";
+		topicNum = 200;
+		genWordNum = 100;
+
+		LDALevelModel ldaLevelModel2 = new LDALevelModel(CORPUS_PATH, topicNum,
+				genWordNum);
+
+		LdaGraph ldaGraph2 = ldaLevelModel2.getLdaLevelGraph();
+		List<LdaDoc> ldaDocs2 = ldaGraph.allDocs;
+		List<LdaTopic> ldaTopics2 = ldaGraph.allTopics;
+
+		System.out.println("\n文档层----------------------------");
+		for (LdaDoc doc : ldaDocs2) {
+			System.out.println("生成主题数目：" + doc.generateTopics.size() + " ");
+		}
+		System.out.println("\n主题层----------------------------");
+		for (LdaTopic topic : ldaTopics2) {
+			System.out.println("生成词条数目：" + topic.generateWords.size());
+		}
+
+		System.out.println(AllLdaItemSet.wordsNum + " "
+				+ AllLdaItemSet.topicsNum + " " + AllLdaItemSet.docsNum);
 	}
 }
