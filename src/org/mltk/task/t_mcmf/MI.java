@@ -3,6 +3,7 @@ package org.mltk.task.t_mcmf;
 import org.apache.lucene.analysis.Analyzer;
 import org.mltk.lucene.SearchInLocalContent;
 import org.mltk.lucene.model.Word;
+import org.mltk.task.t_mcmf.model.LdaTopic;
 
 public class MI {
 
@@ -31,6 +32,12 @@ public class MI {
 				/ Math.log((double) 2);
 
 		return MutualInfomation;
+	}
+
+	// TODO
+	public double compTopicsMI(LdaTopic topic1, LdaTopic topic2) {
+		return corpusNum;
+
 	}
 
 	public String getIndexPath() {

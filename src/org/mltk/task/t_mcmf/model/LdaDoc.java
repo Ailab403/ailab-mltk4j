@@ -1,47 +1,37 @@
 package org.mltk.task.t_mcmf.model;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.mltk.lucene.model.Document;
 
 public class LdaDoc extends Document {
 
+	public int docLdaId;
 	// 生成主题集
-	private List<Map<LdaTopic, Double>> generateTopics;
+	public Map<Integer, Double> generateTopics = new HashMap<Integer, Double>();
 
 	public LdaDoc() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public LdaDoc(String docName, List<Map<LdaTopic, Double>> generateTopics) {
+	public LdaDoc(String docName) {
 		super(docName);
+		// TODO Auto-generated constructor stub
+	}
+
+	public LdaDoc(String docName, int docLdaId,
+			Map<Integer, Double> generateTopics) {
+		super(docName);
+		this.docLdaId = docLdaId;
 		this.generateTopics = generateTopics;
 	}
 
-	public LdaDoc(List<Map<LdaTopic, Double>> generateTopics) {
-		super();
-		this.generateTopics = generateTopics;
-	}
-
-	public List<Map<LdaTopic, Double>> getGenerateTopics() {
-		return generateTopics;
-	}
-
-	public void setGenerateTopics(List<Map<LdaTopic, Double>> generateTopics) {
-		this.generateTopics = generateTopics;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "LdaDoc [generateTopics=" + generateTopics + ", docName="
-				+ docName + "]";
+		return "LdaDoc [docLdaId=" + docLdaId + ", generateTopics="
+				+ generateTopics + "]";
 	}
 
 }

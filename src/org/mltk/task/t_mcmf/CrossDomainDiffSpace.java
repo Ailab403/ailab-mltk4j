@@ -1,10 +1,9 @@
 package org.mltk.task.t_mcmf;
 
 import java.util.List;
-import java.util.Map;
 
+import org.mltk.task.t_mcmf.model.LdaGraph;
 import org.mltk.task.t_mcmf.model.LdaTopic;
-import org.mltk.task.t_mcmf.model.LdaWord;
 
 public class CrossDomainDiffSpace {
 
@@ -15,11 +14,11 @@ public class CrossDomainDiffSpace {
 	 *
 	 */
 	class klArc {
-		LdaWord sWord;
-		LdaWord tWord;
+		LdaTopic sWord;
+		LdaTopic tWord;
 		double arcCost;
 
-		public klArc(LdaWord sWord, LdaWord tWord, double arcCost) {
+		public klArc(LdaTopic sWord, LdaTopic tWord, double arcCost) {
 			super();
 			this.sWord = sWord;
 			this.tWord = tWord;
@@ -65,46 +64,18 @@ public class CrossDomainDiffSpace {
 	 * @param tTopic
 	 * @param kl
 	 */
-	public void transKltoWords(List<LdaWord> sWords, List<LdaWord> tWords) {
+	public void transKltoWords(LdaGraph sLdaGraph, LdaGraph tLdaGraph) {
 
 		System.out.println("正在转移网络代价值。。。");
 
 		// kl散度计算工具类
 		KLDivergence klDivergence = new KLDivergence();
 
-		for (LdaWord sWord : sWords) {
-			for (LdaWord tWord : tWords) {
-
-				double S_kl = 0.0;
-				for (Map<LdaTopic, Double> sBelongTopic : sWord
-						.getBelongTopics()) {
-					for (Map<LdaTopic, Double> tBelongTopic : tWord
-							.getBelongTopics()) {
-						// 遍历所属主题集合
-
-						LdaTopic sTopic = sBelongTopic.keySet().iterator()
-								.next();
-						LdaTopic tTopic = tBelongTopic.keySet().iterator()
-								.next();
-						double sBelongProb = sBelongTopic.values().iterator()
-								.next();
-						double tBelongProb = tBelongTopic.values().iterator()
-								.next();
-
-						double d_kl = klDivergence.compTopicsKL(
-								sTopic.getGenerateWords(),
-								tTopic.getGenerateWords());
-						S_kl += (d_kl * sBelongProb * tBelongProb);
-					}
-				}
-
-				// 归一化
-				double s_kl = S_kl
-						/ (sWord.getBelongTopics().size() * tWord
-								.getBelongTopics().size());
-
-				// 加入费用弧集合
-				this.klArcs.add(new klArc(sWord, tWord, s_kl));
+		for (LdaTopic sTopic : sLdaGraph.allTopics) {
+			for (LdaTopic tTopic : tLdaGraph.allTopics) {
+				double arcCost = klDivergence.compTopicsGenKL(
+						sTopic.generateWords, tTopic.generateWords);
+				this.klArcs.add(new klArc(sTopic, tTopic, arcCost));
 			}
 		}
 	}

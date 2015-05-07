@@ -2,6 +2,7 @@ package org.mltk.task.t_mcmf;
 
 import java.util.List;
 
+import org.mltk.task.t_mcmf.model.LdaTopic;
 import org.mltk.task.t_mcmf.model.LdaWord;
 
 public class CrossDomainInfSpace {
@@ -13,11 +14,11 @@ public class CrossDomainInfSpace {
 	 *
 	 */
 	class miArc {
-		LdaWord sWord;
-		LdaWord tWord;
+		LdaTopic sWord;
+		LdaTopic tWord;
 		double arcWeight;
 
-		public miArc(LdaWord sWord, LdaWord tWord, double arcWeight) {
+		public miArc(LdaTopic sWord, LdaTopic tWord, double arcWeight) {
 			super();
 			this.sWord = sWord;
 			this.tWord = tWord;

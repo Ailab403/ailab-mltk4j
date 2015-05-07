@@ -1,42 +1,52 @@
 package org.mltk.task.t_mcmf.model;
 
-import java.util.List;
-import java.util.Map;
-
 import org.mltk.lucene.model.Word;
 
 public class LdaWord extends Word {
 
-	// 所属topic 生成概率
-	private List<Map<LdaTopic, Double>> belongTopics;
+	// 自己的生成概率
+	public int wordLdaId;
 
 	public LdaWord() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public LdaWord(String wordText, List<Map<LdaTopic, Double>> belongTopics) {
+	public LdaWord(String wordText) {
 		super(wordText);
-		this.belongTopics = belongTopics;
+		// TODO Auto-generated constructor stub
 	}
 
-	public List<Map<LdaTopic, Double>> getBelongTopics() {
-		return belongTopics;
+	public LdaWord(String wordText, int wordLdaId) {
+		super(wordText);
+		this.wordLdaId = wordLdaId;
 	}
 
-	public void setBelongTopics(List<Map<LdaTopic, Double>> belongTopics) {
-		this.belongTopics = belongTopics;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + wordLdaId;
+		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LdaWord other = (LdaWord) obj;
+		if (wordLdaId != other.wordLdaId)
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
-		return "LdaWord [belongTopics=" + belongTopics + ", wordText="
-				+ wordText + "]";
+		return "LdaWord [wordLdaId=" + wordLdaId + "]";
 	}
 
 }
