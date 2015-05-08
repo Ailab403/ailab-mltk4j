@@ -3,6 +3,7 @@ package org.mltk.task.t_mcmf;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mltk.task.t_mcmf.model.AllLdaItemSet;
 import org.mltk.task.t_mcmf.model.LdaDoc;
 import org.mltk.task.t_mcmf.model.LdaGraph;
 import org.mltk.task.t_mcmf.model.LdaTopic;
@@ -40,6 +41,8 @@ public class NetworkFlowGraph {
 	 */
 	public void buildCrsDomainDSpace(LdaGraph sGraph, LdaGraph tGraph) {
 
+		System.out.println("正在计算网络代价值...");
+
 		CrossDomainDiffSpace crossDomainDiffSpace = new CrossDomainDiffSpace();
 		crossDomainDiffSpace.buildSpace(sGraph, tGraph);
 
@@ -54,6 +57,8 @@ public class NetworkFlowGraph {
 	 */
 	public void buildCrsDomainISpace(LdaGraph sGraph, LdaGraph tGraph) {
 
+		System.out.println("正在计算网络信息量...");
+
 		CrossDomainInfSpace crossDomainInfSpace = new CrossDomainInfSpace();
 		crossDomainInfSpace.buildSpace(sGraph, tGraph);
 
@@ -67,6 +72,8 @@ public class NetworkFlowGraph {
 	 * @param tGraph
 	 */
 	public void buildHierarchicalSpace(LdaGraph sGraph, LdaGraph tGraph) {
+
+		System.out.println("正在计算区域内部信息量");
 
 		TopicHierarchicalSpace topicHierarchicalSpace = new TopicHierarchicalSpace();
 		topicHierarchicalSpace.buildSourceSpace(sGraph);
@@ -83,13 +90,15 @@ public class NetworkFlowGraph {
 	 */
 	public void initGraphPoints(LdaGraph sGraph, LdaGraph tGraph) {
 
+		System.out.println("正在统计节点数...");
+
 		List<Integer> sDocPoints = new ArrayList<Integer>();
 		List<Integer> sTopicPoints = new ArrayList<Integer>();
 		for (LdaDoc sDoc : sGraph.allDocs) {
 			sDocPoints.add(sDoc.docLdaId);
 		}
 		for (LdaTopic sTopic : sGraph.allTopics) {
-			tTopicPoints.add(sTopic.topicLdaId);
+			sTopicPoints.add(sTopic.topicLdaId);
 		}
 
 		List<Integer> tDocPoints = new ArrayList<Integer>();
@@ -113,11 +122,27 @@ public class NetworkFlowGraph {
 	 */
 	public void initNetworkFlowGraph() {
 
+		System.out.println("正在创建网络流模型缓存...");
+		System.out.println("源领域文档节点数量：" + this.sGraph.allDocs.size()
+				+ " 源领域主题节点数量：" + this.sGraph.allTopics.size());
+		System.out.println("目标领域文档节点数量：" + this.tGraph.allDocs.size()
+				+ " 目标领域主题节点数量：" + this.tGraph.allTopics.size());
+		System.out.println("节点总数：" + (AllLdaItemSet.docsTopicsNum));
+
 		this.buildCrsDomainDSpace(this.sGraph, this.tGraph);
 		this.buildCrsDomainISpace(this.sGraph, this.tGraph);
 		this.buildHierarchicalSpace(this.sGraph, this.tGraph);
 
 		this.initGraphPoints(this.sGraph, this.tGraph);
+
+		System.out.println("代价弧："
+				+ this.crossDomainDiffSpace.getKlArcs().size());
+		System.out
+				.println("信息弧：" + this.crossDomainInfSpace.getMiArcs().size());
+		System.out
+				.println("内部弧："
+						+ (this.topicHierarchicalSpace.getDtArcs().size() + this.topicHierarchicalSpace
+								.getTdArcs().size()));
 	}
 
 	/**

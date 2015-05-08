@@ -11,7 +11,7 @@ public class MinCostMaxFlow {
 
 	static double INF = 0xffffff * 1.0;
 	static int MAXN = 50000;
-	static int MAXM = 200000;
+	static int MAXM = 1000000;
 
 	// 定义边
 	public class Edge {
@@ -26,7 +26,7 @@ public class MinCostMaxFlow {
 		public Edge() {
 			super();
 			// TODO Auto-generated constructor stub
-			
+
 			this.flow = 0;
 		}
 
@@ -70,7 +70,7 @@ public class MinCostMaxFlow {
 		this.vis = new boolean[MAXN];
 		this.s = 0;
 		this.t = this.n + 1;
-		
+
 		// init
 		finalCost = 0;
 
@@ -100,7 +100,7 @@ public class MinCostMaxFlow {
 		this.edges[eCnt].re = eCnt + 1;
 		this.edgeHead[u] = eCnt++;
 
-		System.out.println(this.edges[eCnt - 1]);
+		// System.out.println(this.edges[eCnt - 1]);
 
 		this.edges[eCnt] = new Edge();
 		// 逆向弧
@@ -112,7 +112,7 @@ public class MinCostMaxFlow {
 		this.edges[eCnt].re = eCnt - 1;
 		this.edgeHead[v] = eCnt++;
 
-		System.out.println(this.edges[eCnt - 1]);
+		// System.out.println(this.edges[eCnt - 1]);
 	}
 
 	/**
@@ -133,12 +133,13 @@ public class MinCostMaxFlow {
 		vis[0] = true;
 		while (head < tail) { // 采用广度优先搜索搜索增广路径
 			int u = que[head++];
-			
+
 			// System.out.println(edgeHead[u]);
 
 			for (i = edgeHead[u]; i != -1; i = edges[i].next) {
-				/*System.out.println(i);
-				System.out.println(edges[i]);*/
+				/*
+				 * System.out.println(i); System.out.println(edges[i]);
+				 */
 				int v = edges[i].v;
 				if (edges[i].volume != 0 && dis[v] > dis[u] + edges[i].cost) {
 					dis[v] = dis[u] + edges[i].cost;
@@ -151,7 +152,7 @@ public class MinCostMaxFlow {
 			}
 			vis[u] = false;
 		}
-		
+
 		if (dis[t] == INF) {
 			// System.out.println(n);
 			return false;
@@ -189,10 +190,11 @@ public class MinCostMaxFlow {
 	 */
 	public void exec() {
 
+		System.out.println("mcmf...");
 		while (spfa() == true) {
-			System.out.println("mcmf");
 			mcmf();
 		}
+		System.out.println("mcmf over");
 	}
 
 	/**************************** 以下为测试 ******************************/
@@ -203,7 +205,7 @@ public class MinCostMaxFlow {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+
 		Scanner cin = new Scanner(System.in);
 		// 输入点数和边数
 		int n, m;
@@ -221,44 +223,32 @@ public class MinCostMaxFlow {
 			v = cin.nextInt();
 			volume = cin.nextDouble();
 			cost = cin.nextDouble();
-			
+
 			// System.out.println(u + " " + v + " " + flow + " " + cost);
 
 			mcmf.addEdge(u, v, volume, cost);
 		}
 		// System.out.println(mcmf.m);
-		
+
 		mcmf.exec();
 
 		System.out.println(mcmf.finalCost + "\n");
-		
+
 		for (int i = 0; i < mcmf.eCnt; i += 2) {
 			System.out.println(mcmf.edges[i]);
 		}
 	}
 
-	/* 测试数据1
-	 
-	 2 4
-	 0 1 3.0 4.0
-	 0 2 1.0 1.0
-	 1 3 2.0 2.0
-	 2 3 3.0 1.0
-	 
+	/*
+	 * 测试数据1
+	 * 
+	 * 2 4 0 1 3.0 4.0 0 2 1.0 1.0 1 3 2.0 2.0 2 3 3.0 1.0
 	 */
-	
-	/* 测试数据2
-	 
-	 5 9
-	 0 1 3.0 4.0
-	 0 2 1.0 1.0
-	 0 3 1.0 2.0
-	 1 4 5.0 10.0
-	 1 5 2.0 2.0
-	 2 5 3.0 1.0
-	 3 5 4.0 2.0
-	 4 6 1.0 3.0
-	 5 6 3.0 4.0
-	 
+
+	/*
+	 * 测试数据2
+	 * 
+	 * 5 9 0 1 3.0 4.0 0 2 1.0 1.0 0 3 1.0 2.0 1 4 5.0 10.0 1 5 2.0 2.0 2 5 3.0
+	 * 1.0 3 5 4.0 2.0 4 6 1.0 3.0 5 6 3.0 4.0
 	 */
 }

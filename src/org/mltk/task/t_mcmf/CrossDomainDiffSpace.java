@@ -15,21 +15,21 @@ public class CrossDomainDiffSpace {
 	 *
 	 */
 	class klArc {
-		public LdaTopic sWord;
-		public LdaTopic tWord;
+		public LdaTopic sTopic;
+		public LdaTopic tTopic;
 		public double arcCost;
 
-		public klArc(LdaTopic sWord, LdaTopic tWord, double arcCost) {
+		public klArc(LdaTopic sTopic, LdaTopic tTopic, double arcCost) {
 			super();
-			this.sWord = sWord;
-			this.tWord = tWord;
+			this.sTopic = sTopic;
+			this.tTopic = tTopic;
 			this.arcCost = arcCost;
 		}
 
 		@Override
 		public String toString() {
-			return "klArc [sWord=" + sWord + ", tWord=" + tWord + ", arcCost="
-					+ arcCost + "]";
+			return "klArc [sTopic=" + sTopic + ", tTopic=" + tTopic
+					+ ", arcCost=" + arcCost + "]";
 		}
 	}
 
@@ -67,14 +67,9 @@ public class CrossDomainDiffSpace {
 	 */
 	public void buildSpace(LdaGraph sLdaGraph, LdaGraph tLdaGraph) {
 
-		System.out.println("正在计算网络代价值...");
-
-		// kl散度计算工具类
-		KLDivergence klDivergence = new KLDivergence();
-
 		for (LdaTopic sTopic : sLdaGraph.allTopics) {
 			for (LdaTopic tTopic : tLdaGraph.allTopics) {
-				double arcCost = klDivergence.compTopicsGenKL(
+				double arcCost = KLDivergence.compTopicsGenKL(
 						sTopic.generateWords, tTopic.generateWords);
 				this.klArcs.add(new klArc(sTopic, tTopic, arcCost));
 			}

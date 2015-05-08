@@ -38,7 +38,7 @@ public class MI {
 		return MutualInfomation;
 	}
 
-	public double compTopicsMI(LdaTopic topic1, LdaTopic topic2) {
+	public static double compTopicsMI(LdaTopic topic1, LdaTopic topic2) {
 
 		Map<Integer, Double> topic1GenWord = topic1.generateWords;
 		Map<Integer, Double> topic2GenWord = topic2.generateWords;

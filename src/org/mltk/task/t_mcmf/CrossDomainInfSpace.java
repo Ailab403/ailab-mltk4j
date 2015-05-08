@@ -66,12 +66,9 @@ public class CrossDomainInfSpace {
 	 */
 	public void buildSpace(LdaGraph sLdaGraph, LdaGraph tLdaGraph) {
 
-		System.out.println("正在计算网络信息量...");
-
-		MI mi = new MI();
 		for (LdaTopic sTopic : sLdaGraph.allTopics) {
 			for (LdaTopic tTopic : tLdaGraph.allTopics) {
-				double arcWeight = mi.compTopicsMI(sTopic, tTopic);
+				double arcWeight = MI.compTopicsMI(sTopic, tTopic);
 				this.miArcs.add(new miArc(sTopic, tTopic, arcWeight));
 			}
 		}

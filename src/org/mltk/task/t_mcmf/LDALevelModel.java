@@ -115,7 +115,7 @@ public class LDALevelModel {
 				}
 			}
 
-			int topicId = ++AllLdaItemSet.topicsNum;
+			int topicId = ++AllLdaItemSet.docsTopicsNum;
 			topic.topicLdaId = topicId;
 			AllLdaItemSet.allLdaTopics.add(topic);
 			topics.add(topic);
@@ -157,7 +157,7 @@ public class LDALevelModel {
 				}
 			}
 
-			int docId = ++AllLdaItemSet.docsNum;
+			int docId = ++AllLdaItemSet.docsTopicsNum;
 			doc.docLdaId = docId;
 			AllLdaItemSet.allLdaDocs.add(doc);
 			docs.add(doc);
@@ -176,9 +176,9 @@ public class LDALevelModel {
 
 		LdaGraph levelGraph;
 		try {
-			
+
 			System.out.println("正在统计层次关系...");
-			
+
 			levelGraph = this.buildLdaGraph(this.corpusPath, topicMap);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

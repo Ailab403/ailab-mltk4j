@@ -11,13 +11,11 @@ public class AllLdaItemSet {
 
 	public static Set<String> allLdaWordsText = new HashSet<String>();
 
-	public static int topicsNum = 0;
-
 	public static Set<LdaTopic> allLdaTopics = new HashSet<LdaTopic>();
 
-	public static int docsNum = 0;
-
 	public static Set<LdaDoc> allLdaDocs = new HashSet<LdaDoc>();
+
+	public static int docsTopicsNum = 0;
 
 	public static int findWordId(String wordText) {
 		for (LdaWord ldaWord : allLdaWords) {

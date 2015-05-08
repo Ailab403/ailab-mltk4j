@@ -55,6 +55,6 @@ public class LDALevelModelTest {
 		}
 
 		System.out.println(AllLdaItemSet.wordsNum + " "
-				+ AllLdaItemSet.topicsNum + " " + AllLdaItemSet.docsNum);
+				+ AllLdaItemSet.docsTopicsNum);
 	}
 }
