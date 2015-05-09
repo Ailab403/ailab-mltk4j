@@ -28,7 +28,7 @@ public class TokenSegFolderFileTest {
 
 	@Test
 	public void testTokenSegFolderFileRecursion() {
-		String oriFolderPath = ".\\file\\sentiment\\ori\\dianzi";
+		String oriFolderPath = ".\\file\\sentiment\\ori\\tushu";
 		String tagFolderPath = ".\\file\\sentiment\\seg";
 
 		Analyzer a = new AnsjAnalysis();

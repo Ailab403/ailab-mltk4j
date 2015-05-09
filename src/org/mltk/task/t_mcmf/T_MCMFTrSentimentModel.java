@@ -23,8 +23,7 @@ public class T_MCMFTrSentimentModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public T_MCMFTrSentimentModel(String trainFolderPath,
-			String testFolderPath) {
+	public T_MCMFTrSentimentModel(String trainFolderPath, String testFolderPath) {
 		super();
 		this.trainFolderPath = trainFolderPath;
 		this.testFolderPath = testFolderPath;
@@ -108,8 +107,7 @@ public class T_MCMFTrSentimentModel {
 
 			minCostMaxFlow.addEdge(u, v, volume, cost);
 
-			NetWorkModelText += ("st-tt: u=" + u + " v=" + v + " volume="
-					+ volume + " cost=" + cost + "\r\n");
+			NetWorkModelText += (minCostMaxFlow.edges[minCostMaxFlow.eCnt - 2] + "\r\n");
 		}
 
 		System.out
@@ -124,8 +122,7 @@ public class T_MCMFTrSentimentModel {
 
 			minCostMaxFlow.addEdge(u, v, volume, cost);
 
-			NetWorkModelText += ("sd-st: u=" + u + " v=" + v + " volume="
-					+ volume + " cost=" + cost + "\r\n");
+			NetWorkModelText += (minCostMaxFlow.edges[minCostMaxFlow.eCnt - 2] + "\r\n");
 		}
 
 		System.out
@@ -140,22 +137,19 @@ public class T_MCMFTrSentimentModel {
 
 			minCostMaxFlow.addEdge(u, v, volume, cost);
 
-			NetWorkModelText += ("tt-td: u=" + u + " v=" + v + " volume="
-					+ volume + " cost=" + cost + "\r\n");
+			NetWorkModelText += (minCostMaxFlow.edges[minCostMaxFlow.eCnt - 2] + "\r\n");
 		}
 		for (Integer sDocPoint : sDocPoints) {
 
 			minCostMaxFlow.addEdge(s, sDocPoint, 1, 0);
 
-			NetWorkModelText += ("s-sd u=" + s + " v=" + sDocPoint + " volume="
-					+ 1 + " cost=" + 0 + "\r\n");
+			NetWorkModelText += (minCostMaxFlow.edges[minCostMaxFlow.eCnt - 2] + "\r\n");
 		}
 		for (Integer tDocPoint : tDocPoints) {
 
 			minCostMaxFlow.addEdge(tDocPoint, t, 1, 0);
 
-			NetWorkModelText += ("td-t u=" + tDocPoint + " v=" + t + " volume="
-					+ 1 + " cost=" + 0 + "\r\n");
+			NetWorkModelText += (minCostMaxFlow.edges[minCostMaxFlow.eCnt - 2] + "\r\n");
 		}
 
 		bwTest.write(NetWorkModelText);
@@ -178,7 +172,7 @@ public class T_MCMFTrSentimentModel {
 		System.out.println("节点数：" + sDocPoints.size() + " "
 				+ sTopicPoints.size() + " " + tDocPoints.size() + " "
 				+ tTopicPoints.size());
-		System.out.println("正在生成model信息。。。");
+		System.out.println("正在生成model信息...");
 
 		// 记录执行后流量信息
 		File ArcFile = new File(".\\file\\sentiment\\model\\arc.hy");
@@ -187,6 +181,13 @@ public class T_MCMFTrSentimentModel {
 		}
 		BufferedWriter bwArc = new BufferedWriter(new FileWriter(ArcFile));
 		String arcText = "";
+
+		for (int i = 0; i < minCostMaxFlow.eCnt; i += 2) {
+			arcText += (minCostMaxFlow.edges[i].toString() + "\r\n");
+		}
+
+		bwArc.write(arcText);
+		bwArc.close();
 
 		// 处理源领域训练语料
 		List<String> trainFileLines = new ArrayList<String>();
@@ -203,8 +204,6 @@ public class T_MCMFTrSentimentModel {
 						double flowRatio = minCostMaxFlow.edges[i].flow
 								* 1.0
 								/ (minCostMaxFlow.edges[i].volume + minCostMaxFlow.edges[i].flow);
-
-						arcText += (minCostMaxFlow.edges[i].toString() + "\r\n");
 
 						if (lenda <= flowRatio) {
 							resFlow = minCostMaxFlow.edges[i].flow;
@@ -241,8 +240,6 @@ public class T_MCMFTrSentimentModel {
 								* 1.0
 								/ (minCostMaxFlow.edges[i].volume + minCostMaxFlow.edges[i].flow);
 
-						arcText += (minCostMaxFlow.edges[i].toString() + "\r\n");
-
 						if (lenda <= flowRatio) {
 							resFlow = minCostMaxFlow.edges[i].flow;
 
@@ -262,9 +259,6 @@ public class T_MCMFTrSentimentModel {
 			testFileLines.add(testFileLine);
 			testNum++;
 		}
-
-		bwArc.write(arcText);
-		bwArc.close();
 
 		System.out.println("正在向磁盘中写入model...");
 

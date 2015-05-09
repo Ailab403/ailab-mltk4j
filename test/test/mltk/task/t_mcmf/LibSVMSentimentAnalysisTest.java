@@ -5,6 +5,11 @@ import java.util.List;
 import org.mltk.libsvm.model.ClassifyRes;
 import org.mltk.task.t_mcmf.LibSVMSentimentAnalysis;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class LibSVMSentimentAnalysisTest {
 
 	public static void main(String[] args) {

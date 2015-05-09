@@ -17,6 +17,11 @@ import org.mltk.libsvm.model.ClassifyRes;
 import org.mltk.libsvm.model.TestDataItem;
 import org.mltk.libsvm.model.TrainDataSet;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class LibSVMSentimentAnalysis {
 
 	public TrainDataSet libsvmSentimentTrain(String trainModelPath) {

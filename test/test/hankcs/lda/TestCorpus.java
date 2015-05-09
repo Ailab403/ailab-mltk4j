@@ -42,7 +42,7 @@ public class TestCorpus {
 	@Test
 	public void testAll() throws Exception {
 		// 1. Load corpus from disk
-		Corpus corpus = Corpus.load(".\\file\\sentiment\\seg\\dianying\\seg");
+		Corpus corpus = Corpus.load(".\\file\\sentiment\\seg\\tushuall");
 		// 2. Create a LDA sampler
 		LdaGibbsSampler ldaGibbsSampler = new LdaGibbsSampler(
 				corpus.getDocument(), corpus.getVocabularySize());

@@ -3,6 +3,11 @@ package org.mltk.task.t_mcmf.model;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 
+ * @author superhy
+ *
+ */
 public class AllLdaItemSet {
 
 	public static int wordsNum = 0;
