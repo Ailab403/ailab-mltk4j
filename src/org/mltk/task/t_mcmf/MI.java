@@ -60,7 +60,7 @@ public class MI {
 		}
 		int allNum = allSet.size();
 
-		double MutualInfomation = sameNum < allNum ? (sameNum * 1.0 / allNum)
+		double MutualInfomation = sameNum < allNum ? ((sameNum * 1.0 + 1) / allNum)
 				: 1;
 
 		return MutualInfomation;

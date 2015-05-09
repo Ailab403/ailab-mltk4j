@@ -27,7 +27,7 @@ public class MinCostMaxFlow {
 			super();
 			// TODO Auto-generated constructor stub
 
-			this.flow = 0;
+			this.flow = 0.0;
 		}
 
 		@Override

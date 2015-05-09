@@ -26,6 +26,6 @@ public class LingpipePolarityClassifyTextTest {
 		}
 
 		// 打印大致的准确率
-		System.out.println(correctNum * 1.0 / polarityResList.size());
+		System.out.println("ac: " + correctNum * 1.0 / polarityResList.size());
 	}
 }

@@ -13,23 +13,28 @@ import org.mltk.task.t_mcmf.model.LdaGraph;
  * @author superhy
  *
  */
-public class T_MCMFTrSentimentAnalysis {
+public class T_MCMFTrSentimentModel {
 
 	private String trainFolderPath;
 	private String testFolderPath;
 
-	public T_MCMFTrSentimentAnalysis() {
+	public T_MCMFTrSentimentModel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public T_MCMFTrSentimentAnalysis(String trainFolderPath,
+	public T_MCMFTrSentimentModel(String trainFolderPath,
 			String testFolderPath) {
 		super();
 		this.trainFolderPath = trainFolderPath;
 		this.testFolderPath = testFolderPath;
 	}
 
+	/**
+	 * @param networkFlowGraph
+	 * @param lenda
+	 * @throws Exception
+	 */
 	public void execMinCostMaxFlow(NetworkFlowGraph networkFlowGraph,
 			double lenda) throws Exception {
 
@@ -58,14 +63,36 @@ public class T_MCMFTrSentimentAnalysis {
 		List<Integer> tDocPoints = networkFlowGraph.gettDocPoints();
 		List<Integer> tTopicPoints = networkFlowGraph.gettTopicPoints();
 
+		// 记录网络流模型信息
+		File NetWorkModelFile = new File(
+				".\\file\\sentiment\\model\\network.hy");
+		if (!NetWorkModelFile.exists()) {
+			NetWorkModelFile.createNewFile();
+		}
+		BufferedWriter bwTest = new BufferedWriter(new FileWriter(
+				NetWorkModelFile));
+		String NetWorkModelText = "";
+
+		NetWorkModelText += "sDocPoints: ";
 		for (Integer sDocPoint : sDocPoints) {
-			System.out.print(sDocPoint + " ");
+			NetWorkModelText += (sDocPoint + " ");
 		}
-		System.out.println();
+		NetWorkModelText += "\r\n";
+		NetWorkModelText += "sTopicPoints: ";
 		for (Integer sTopicPoint : sTopicPoints) {
-			System.out.print(sTopicPoint + " ");
+			NetWorkModelText += (sTopicPoint + " ");
 		}
-		System.out.println();
+		NetWorkModelText += "\r\n";
+		NetWorkModelText += "tTopicPoints: ";
+		for (Integer tTopicPoint : tTopicPoints) {
+			NetWorkModelText += (tTopicPoint + " ");
+		}
+		NetWorkModelText += "\r\n";
+		NetWorkModelText += "tDocPoints: ";
+		for (Integer tDocPoint : tDocPoints) {
+			NetWorkModelText += (tDocPoint + " ");
+		}
+		NetWorkModelText += "\r\n";
 
 		MinCostMaxFlow minCostMaxFlow = new MinCostMaxFlow(n, m);
 		int s = 0, t = n + 1;
@@ -79,12 +106,10 @@ public class T_MCMFTrSentimentAnalysis {
 			double volume = crossDomainInfSpace.getMiArcs().get(i).arcWeight; // 容量
 			double cost = crossDomainDiffSpace.getKlArcs().get(i).arcCost; // 费用
 
-			/*
-			 * System.out.println("u=" + u + " v=" + v + " volume=" + volume +
-			 * " cost=" + cost);
-			 */
-
 			minCostMaxFlow.addEdge(u, v, volume, cost);
+
+			NetWorkModelText += ("st-tt: u=" + u + " v=" + v + " volume="
+					+ volume + " cost=" + cost + "\r\n");
 		}
 
 		System.out
@@ -98,6 +123,9 @@ public class T_MCMFTrSentimentAnalysis {
 			double cost = 0; // 费用
 
 			minCostMaxFlow.addEdge(u, v, volume, cost);
+
+			NetWorkModelText += ("sd-st: u=" + u + " v=" + v + " volume="
+					+ volume + " cost=" + cost + "\r\n");
 		}
 
 		System.out
@@ -111,15 +139,27 @@ public class T_MCMFTrSentimentAnalysis {
 			double cost = 0; // 费用
 
 			minCostMaxFlow.addEdge(u, v, volume, cost);
+
+			NetWorkModelText += ("tt-td: u=" + u + " v=" + v + " volume="
+					+ volume + " cost=" + cost + "\r\n");
 		}
 		for (Integer sDocPoint : sDocPoints) {
 
 			minCostMaxFlow.addEdge(s, sDocPoint, 1, 0);
+
+			NetWorkModelText += ("s-sd u=" + s + " v=" + sDocPoint + " volume="
+					+ 1 + " cost=" + 0 + "\r\n");
 		}
 		for (Integer tDocPoint : tDocPoints) {
 
 			minCostMaxFlow.addEdge(tDocPoint, t, 1, 0);
+
+			NetWorkModelText += ("td-t u=" + tDocPoint + " v=" + t + " volume="
+					+ 1 + " cost=" + 0 + "\r\n");
 		}
+
+		bwTest.write(NetWorkModelText);
+		bwTest.close();
 
 		System.out.println("正在运行最小费用最大流算法...");
 
@@ -140,6 +180,14 @@ public class T_MCMFTrSentimentAnalysis {
 				+ tTopicPoints.size());
 		System.out.println("正在生成model信息。。。");
 
+		// 记录执行后流量信息
+		File ArcFile = new File(".\\file\\sentiment\\model\\arc.hy");
+		if (!ArcFile.exists()) {
+			ArcFile.createNewFile();
+		}
+		BufferedWriter bwArc = new BufferedWriter(new FileWriter(ArcFile));
+		String arcText = "";
+
 		// 处理源领域训练语料
 		List<String> trainFileLines = new ArrayList<String>();
 		int trainNum = 1;
@@ -155,6 +203,9 @@ public class T_MCMFTrSentimentAnalysis {
 						double flowRatio = minCostMaxFlow.edges[i].flow
 								* 1.0
 								/ (minCostMaxFlow.edges[i].volume + minCostMaxFlow.edges[i].flow);
+
+						arcText += (minCostMaxFlow.edges[i].toString() + "\r\n");
+
 						if (lenda <= flowRatio) {
 							resFlow = minCostMaxFlow.edges[i].flow;
 
@@ -167,7 +218,7 @@ public class T_MCMFTrSentimentAnalysis {
 				trainFileLine += (resFlow + " ");
 			}
 			// change 50
-			if (trainNum <= 50) {
+			if (trainNum <= 100) {
 				trainFileLine += "label:1";
 			} else {
 				trainFileLine += "label:0";
@@ -189,6 +240,9 @@ public class T_MCMFTrSentimentAnalysis {
 						double flowRatio = minCostMaxFlow.edges[i].flow
 								* 1.0
 								/ (minCostMaxFlow.edges[i].volume + minCostMaxFlow.edges[i].flow);
+
+						arcText += (minCostMaxFlow.edges[i].toString() + "\r\n");
+
 						if (lenda <= flowRatio) {
 							resFlow = minCostMaxFlow.edges[i].flow;
 
@@ -208,6 +262,9 @@ public class T_MCMFTrSentimentAnalysis {
 			testFileLines.add(testFileLine);
 			testNum++;
 		}
+
+		bwArc.write(arcText);
+		bwArc.close();
 
 		System.out.println("正在向磁盘中写入model...");
 
@@ -261,6 +318,7 @@ public class T_MCMFTrSentimentAnalysis {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
