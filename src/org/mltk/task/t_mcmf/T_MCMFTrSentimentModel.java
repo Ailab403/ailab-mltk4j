@@ -31,11 +31,11 @@ public class T_MCMFTrSentimentModel {
 
 	/**
 	 * @param networkFlowGraph
-	 * @param lenda
+	 * @param gama
 	 * @throws Exception
 	 */
 	public void execMinCostMaxFlow(NetworkFlowGraph networkFlowGraph,
-			double lenda) throws Exception {
+			double gama) throws Exception {
 
 		System.out.println("正在建立流量网络图...");
 
@@ -147,7 +147,7 @@ public class T_MCMFTrSentimentModel {
 		}
 		for (Integer tDocPoint : tDocPoints) {
 
-			minCostMaxFlow.addEdge(tDocPoint, t, 1, 0);
+			minCostMaxFlow.addEdge(tDocPoint, t, 1.5, 0);
 
 			NetWorkModelText += (minCostMaxFlow.edges[minCostMaxFlow.eCnt - 2] + "\r\n");
 		}
@@ -205,7 +205,7 @@ public class T_MCMFTrSentimentModel {
 								* 1.0
 								/ (minCostMaxFlow.edges[i].volume + minCostMaxFlow.edges[i].flow);
 
-						if (lenda <= flowRatio) {
+						if (gama <= flowRatio) {
 							resFlow = minCostMaxFlow.edges[i].flow;
 
 							// System.out.println(minCostMaxFlow.edges[i]);
@@ -240,7 +240,7 @@ public class T_MCMFTrSentimentModel {
 								* 1.0
 								/ (minCostMaxFlow.edges[i].volume + minCostMaxFlow.edges[i].flow);
 
-						if (lenda <= flowRatio) {
+						if (gama <= flowRatio) {
 							resFlow = minCostMaxFlow.edges[i].flow;
 
 							// System.out.println(resFlow);
@@ -293,9 +293,9 @@ public class T_MCMFTrSentimentModel {
 	 * 
 	 * @param topicNum
 	 * @param wordNum
-	 * @param lenda
+	 * @param gama
 	 */
-	public void trSentimentAnalysis(int topicNum, int genWordNum, double lenda) {
+	public void trSentimentAnalysis(int topicNum, int genWordNum, double gama) {
 
 		try {
 
@@ -308,7 +308,7 @@ public class T_MCMFTrSentimentModel {
 			NetworkFlowGraph networkFlowGraph = new NetworkFlowGraph(sGraph,
 					tGraph);
 			networkFlowGraph.initNetworkFlowGraph();
-			this.execMinCostMaxFlow(networkFlowGraph, lenda);
+			this.execMinCostMaxFlow(networkFlowGraph, gama);
 
 		} catch (Exception e) {
 			// TODO: handle exception

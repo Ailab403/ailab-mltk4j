@@ -107,8 +107,9 @@ public class LDALevelModel {
 				} else {
 					int genWordId = ++AllLdaItemSet.wordsNum;
 					AllLdaItemSet.allLdaWordsText.add(wordText);
-					AllLdaItemSet.allLdaWords.add(new LdaWord(wordText,
-							genWordId));
+					// AllLdaItemSet.allLdaWords.add(new LdaWord(wordText,
+					// genWordId));
+					AllLdaItemSet.allLdaWords.put(genWordId, wordText);
 					topic.generateWords.put(genWordId, wordProb);
 
 					allLdaWordText.add(wordText);

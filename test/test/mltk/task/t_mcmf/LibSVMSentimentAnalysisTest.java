@@ -24,17 +24,21 @@ public class LibSVMSentimentAnalysisTest {
 		List<ClassifyRes> classifyResList = libSVMSentimentAnalysis
 				.libsvmSentimentAnalysis(testModelPath, libsvmModelPath);
 		int probNum = 0, normNum = 0;
+		int textNum = 0;
 		for (ClassifyRes classifyRes : classifyResList) {
-			if (classifyRes.getProbilityRes() == 0.0) {
+			if ((classifyRes.getProbilityRes() == 0.0 && textNum >= TestCorpusParam.POS_TAG)
+					|| (classifyRes.getProbilityRes() == 1.0 && textNum < TestCorpusParam.NEG_TAG)) {
 				probNum++;
 			}
-			if (classifyRes.getNormalRes() == 0.0) {
+			if ((classifyRes.getNormalRes() == 0.0 && textNum >= TestCorpusParam.POS_TAG)
+					|| (classifyRes.getNormalRes() == 1.0 && textNum < TestCorpusParam.NEG_TAG)) {
 				normNum++;
 			}
+			textNum++;
 		}
 
-		double probResAc = probNum * 1.0 / 100;
-		double normResAc = normNum * 1.0 / 100;
+		double probResAc = probNum * 1.0 / 200;
+		double normResAc = normNum * 1.0 / 200;
 
 		System.out.println("\nprobResAc: " + probResAc + " normResAc: "
 				+ normResAc);

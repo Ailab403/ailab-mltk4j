@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.mltk.task.t_mcmf.model.AllLdaItemSet;
+
 /**
  * 
  * @author dd
@@ -14,7 +16,7 @@ public class KLDivergence {
 
 	/**
 	 * 
-	 * TODO (需改进) 传Map
+	 * TODO 传Map，主题的词分布
 	 * 
 	 * @author dd
 	 * @param distribute1
@@ -24,22 +26,46 @@ public class KLDivergence {
 	public static double compTopicsGenKL(Map<Integer, Double> distribute1,
 			Map<Integer, Double> distribute2) {
 
+		List<String> wordTextList = new ArrayList<String>();
+		for (Entry<Integer, Double> dist : distribute1.entrySet()) {
+			wordTextList.add(AllLdaItemSet.findWordText(dist.getKey()));
+		}
+		for (Entry<Integer, Double> dist : distribute2.entrySet()) {
+			wordTextList.add(AllLdaItemSet.findWordText(dist.getKey()));
+		}
+
 		List<Double> themeProValueA = new ArrayList<Double>();
 		List<Double> themeProValueB = new ArrayList<Double>();
+
+		for (String wordText : wordTextList) {
+			boolean flagA = false;
+			for (Entry<Integer, Double> dist : distribute1.entrySet()) {
+				if (AllLdaItemSet.findWordText(dist.getKey()).equals(wordText)) {
+					themeProValueA.add(dist.getValue());
+					flagA = true;
+					break;
+				}
+			}
+			if (!flagA) {
+				themeProValueA.add(0.000001);
+			}
+
+			boolean flagB = false;
+			for (Entry<Integer, Double> dist : distribute2.entrySet()) {
+				if (AllLdaItemSet.findWordText(dist.getKey()).equals(wordText)) {
+					themeProValueB.add(dist.getValue());
+					flagB = true;
+					break;
+				}
+			}
+			if (!flagB) {
+				themeProValueB.add(0.0001);
+			}
+		}
 
 		double KLDis = 0;
 		double KLSingleA = 0;
 		double KLSingleB = 0;
-
-		for (Entry<Integer, Double> themeMapA : distribute1.entrySet()) {
-			double themeProANumber = themeMapA.getValue();
-			themeProValueA.add(themeProANumber);
-
-		}
-
-		for (Entry<Integer, Double> themeMapB : distribute2.entrySet()) {
-			themeProValueB.add(themeMapB.getValue());
-		}
 
 		// 传List进去
 		for (int i = 0; i < themeProValueB.size(); i++) {

@@ -77,8 +77,8 @@ public class LibSVMSentimentAnalysis {
 		TrainDataSet trainDataSet = this.libsvmSentimentTrain(trainModelPath);
 
 		LibSVMParameFactory parameFactory = new LibSVMParameFactory(
-				svm_parameter.C_SVC, svm_parameter.RBF, 1000, 0.0000001, 10, 1,
-				1024);
+				svm_parameter.C_SVC, svm_parameter.RBF, 10000, 0.000001, 10,
+				1, 1024);
 
 		LibSVMClassifierTrain classifierTrain = new LibSVMClassifierTrain(
 				parameFactory);
