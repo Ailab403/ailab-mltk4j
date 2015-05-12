@@ -16,9 +16,9 @@ public class LibSVMSentimentAnalysisTest {
 	public static void main(String[] args) {
 
 		LibSVMSentimentAnalysis libSVMSentimentAnalysis = new LibSVMSentimentAnalysis();
-		String libsvmModelPath = ".\\file\\sentiment\\model\\libsvmModel.hy";
-		String trainModelPath = ".\\file\\sentiment\\model\\train.hy";
-		String testModelPath = ".\\file\\sentiment\\model\\test.hy";
+		String libsvmModelPath = "./file/sentiment/model/libsvmModel.hy";
+		String trainModelPath = "./file/sentiment/model/train.hy";
+		String testModelPath = "./file/sentiment/model/test.hy";
 
 		libSVMSentimentAnalysis.trainLibsvmModel(trainModelPath,
 				libsvmModelPath);
