@@ -1,8 +1,11 @@
 package test.mltk.task.t_mcmf;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.ansj.util.ClassifyEvaluation;
+import libsvm.eval.ClassifyEvaluation;
+
 import org.mltk.libsvm.model.ClassifyRes;
 import org.mltk.task.t_mcmf.LibSVMSentimentAnalysis;
 
@@ -31,23 +34,25 @@ public class LibSVMSentimentAnalysisTest {
 		 * 0.06357078309697942 nr_sv 97 86 SV
 		 */
 
-		int probNum = 0, normNum = 0;
+		/**
+		 * evalution
+		 */
+
+		Map<Integer, Double> evalProbRes = new HashMap<Integer, Double>();
+		Map<Integer, Double> evalNormRes = new HashMap<Integer, Double>();
+
 		int textNum = 0;
+
 		for (ClassifyRes classifyRes : classifyResList) {
-			if ((classifyRes.getProbilityRes() == 0.0 && textNum >= ClassifyEvaluation.POS_TAG)
-					|| (classifyRes.getProbilityRes() == 1.0 && textNum < ClassifyEvaluation.NEG_TAG)) {
-				probNum++;
-			}
-			if ((classifyRes.getNormalRes() == 0.0 && textNum >= ClassifyEvaluation.POS_TAG)
-					|| (classifyRes.getNormalRes() == 1.0 && textNum < ClassifyEvaluation.NEG_TAG)) {
-				normNum++;
-			}
+			evalProbRes.put(textNum, classifyRes.getProbilityRes());
+			evalNormRes.put(textNum, classifyRes.getNormalRes());
+
 			textNum++;
 		}
-
-		double probResAc = probNum * 1.0 / 200;
-		double normResAc = normNum * 1.0 / 200;
-
+		
+		double probResAc = ClassifyEvaluation.parse_evalution(evalProbRes);
+		double normResAc = ClassifyEvaluation.parse_evalution(evalNormRes);
+		
 		System.out.println("\nprobResAc: " + probResAc + " normResAc: "
 				+ normResAc);
 	}
