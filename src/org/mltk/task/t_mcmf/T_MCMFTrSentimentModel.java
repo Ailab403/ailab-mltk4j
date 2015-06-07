@@ -64,7 +64,7 @@ public class T_MCMFTrSentimentModel {
 
 		// 记录网络流模型信息
 		File NetWorkModelFile = new File(
-				".\\file\\sentiment\\model\\network.hy");
+				".\\file\\sentiment\\model\\network");
 		if (!NetWorkModelFile.exists()) {
 			NetWorkModelFile.createNewFile();
 		}
@@ -175,7 +175,7 @@ public class T_MCMFTrSentimentModel {
 		System.out.println("正在生成model信息...");
 
 		// 记录执行后流量信息
-		File ArcFile = new File(".\\file\\sentiment\\model\\arc.hy");
+		File ArcFile = new File(".\\file\\sentiment\\model\\arc");
 		if (!ArcFile.exists()) {
 			ArcFile.createNewFile();
 		}
@@ -267,7 +267,7 @@ public class T_MCMFTrSentimentModel {
 		for (String line : trainFileLines) {
 			trainFileText += (line + "\r\n");
 		}
-		File trainModelFile = new File(".\\file\\sentiment\\model\\train.hy");
+		File trainModelFile = new File(".\\file\\sentiment\\model\\train");
 		if (!trainModelFile.exists()) {
 			trainModelFile.createNewFile();
 		}
@@ -279,7 +279,7 @@ public class T_MCMFTrSentimentModel {
 		for (String line : testFileLines) {
 			testFileText += (line + "\r\n");
 		}
-		File testModelFile = new File(".\\file\\sentiment\\model\\test.hy");
+		File testModelFile = new File(".\\file\\sentiment\\model\\test");
 		if (!testModelFile.exists()) {
 			testModelFile.createNewFile();
 		}
