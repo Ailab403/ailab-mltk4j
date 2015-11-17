@@ -25,23 +25,23 @@ public class ExecFetchSinaNewsContent {
 		this.folderPath = folderPath;
 	}
 
-	public void initSinaLinks() {
+	public void initSinaLinks(String seedUrl) {
 		FetchLinksFromPage fetchObj = new FetchLinksFromPage();
-		setLinks(fetchObj.filterUrl(CrawlSeedParam.SINA_NEWS));
+		setLinks(fetchObj.filterUrl(seedUrl));
 	}
 
-	public void initFileFolderPath() {
-		setFolderPath("./file/crawler_test/");
+	public void initFileFolderPath(String fileFolderPath) {
+		setFolderPath(fileFolderPath);
 	}
 
-	public void execFetchSinaContentThread() {
+	public void execFetchSinaContentThread(String seedUrl, String fileFolderPath, int threadNum) {
 
 		// TODO 改成手动传入参数
-		this.initSinaLinks();
-		this.initFileFolderPath();
+		this.initSinaLinks(seedUrl);
+		this.initFileFolderPath(fileFolderPath);
 
 		// 创建线程池
-		ExecutorService exes = Executors.newFixedThreadPool(5);
+		ExecutorService exes = Executors.newFixedThreadPool(threadNum);
 		Set<Future<Boolean>> setThreads = new java.util.HashSet<Future<Boolean>>();
 		for (ExactLinks links : getLinks()) {
 			// 创建线程任务
