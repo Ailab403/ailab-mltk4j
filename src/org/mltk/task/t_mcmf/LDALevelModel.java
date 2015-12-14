@@ -61,8 +61,10 @@ public class LDALevelModel {
 					corpus.getDocument(), corpus.getVocabularySize());
 			// 3. Train it
 			ldaGibbsSampler.gibbs(topicNum);
-			// 4. The phi matrix is a LDA model, you can use LdaUtil to explain
-			// it.
+			/*
+			 * 4. The phi matrix is a LDA model, you can use LdaUtil to explain
+			 * it.
+			 */
 			double[][] phi = ldaGibbsSampler.getPhi();
 			Map<String, Double>[] topicMap = LdaUtil.translate(phi,
 					corpus.getVocabulary(), genWordNum);
