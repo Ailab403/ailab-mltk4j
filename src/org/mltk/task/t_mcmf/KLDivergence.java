@@ -47,7 +47,8 @@ public class KLDivergence {
 				}
 			}
 			if (!flagA) {
-				themeProValueA.add(0.000001);
+				// add smoothing factor
+				themeProValueA.add(0.0001);
 			}
 
 			boolean flagB = false;
@@ -59,6 +60,7 @@ public class KLDivergence {
 				}
 			}
 			if (!flagB) {
+				// add smoothing factor
 				themeProValueB.add(0.0001);
 			}
 		}
@@ -80,7 +82,7 @@ public class KLDivergence {
 		}
 
 		KLDis = (KLSingleA + KLSingleB) / (2 * themeProValueB.size());
-		// System.out.println("JS散度为：" + KLDis);
+		// System.out.println("KL散度为：" + KLDis);
 
 		return KLDis;
 
