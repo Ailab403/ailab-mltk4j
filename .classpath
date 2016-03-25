@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
@@ -33,5 +32,9 @@
 	<classpathentry kind="lib" path="lib/mongo/mongo-2.10.1.jar"/>
 	<classpathentry kind="lib" path="lib/lingpipe/lingpipe-4.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/libsvm/classify_eval.jar"/>
+	<classpathentry kind="lib" path="lib/opennlp/jwnl-1.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/opennlp/opennlp-maxent-3.0.3.jar" sourcepath="lib/opennlp/apache-opennlp-1.5.3-src"/>
+	<classpathentry kind="lib" path="lib/opennlp/opennlp-tools-1.5.3.jar" sourcepath="lib/opennlp/apache-opennlp-1.5.3-src"/>
+	<classpathentry kind="lib" path="lib/opennlp/opennlp-uima-1.5.3.jar" sourcepath="lib/opennlp/apache-opennlp-1.5.3-src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

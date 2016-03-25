@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"[
+]>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<chapter id="tools.corpora">
+
+	<title>Corpora</title>
+	<para>
+	    OpenNLP has built-in support to convert into the native training format or directly use
+        various corpora	needed by the different	trainable components.
+	</para>
+	<section id="tools.corpora.conll">
+		<title>CONLL</title>
+		<para>
+		CoNLL stands for the Conference on Computational Natural Language Learning and is not
+		a single project but a consortium of developers attempting to broaden the computing
+		environment. More information about the entire conference series can be obtained here
+		for CoNLL.
+		</para>
+		<section id="tools.corpora.conll.2000">
+		<title>CONLL 2000</title>
+		<para>
+		The shared task of CoNLL-2000 is Chunking.
+		</para>
+		<section id="tools.corpora.conll.2000.getting">
+		<title>Getting the data</title>
+		<para>
+		CoNLL-2000 made available training and test data for the Chunk task in English. 
+		The data consists of the same partitions of the Wall Street Journal corpus (WSJ) 
+		as the widely used data for noun phrase chunking: sections 15-18 as training data 
+		(211727 tokens) and section 20 as test data (47377 tokens). The annotation of the 
+		data has been derived from the WSJ corpus by a program written by Sabine Buchholz 
+		from Tilburg University, The Netherlands. Both training and test data can be
+		obtained from <ulink url="http://www.cnts.ua.ac.be/conll2000/chunking">http://www.cnts.ua.ac.be/conll2000/chunking</ulink>. 
+		</para>
+		</section>
+		<section id="tools.corpora.conll.2000.converting">
+		<title>Converting the data</title>
+		<para>
+		The data don't need to be transformed because Apache OpenNLP Chunker follows
+		the CONLL 2000 format for training. Check <link linkend="tools.chunker.training">Chunker Training</link> section to learn more.
+		</para>
+		</section>
+		<section id="tools.corpora.conll.2000.training">
+		<title>Training</title>
+		<para>
+		 We can train the model for the Chunker using the train.txt available at CONLL 2000:
+		 <screen>
+			<![CDATA[
+$ opennlp ChunkerTrainerME -model en-chunker.bin -iterations 500 \
+                           -lang en -data train.txt -encoding UTF-8]]>
+		</screen>
+		<screen>
+			<![CDATA[
+Indexing events using cutoff of 5
+
+	Computing event counts...  done. 211727 events
+	Indexing...  done.
+Sorting and merging events... done. Reduced 211727 events to 197252.
+Done indexing.
+Incorporating indexed data for training...  
+done.
+	Number of Event Tokens: 197252
+	    Number of Outcomes: 22
+	  Number of Predicates: 107838
+...done.
+Computing model parameters...
+Performing 500 iterations.
+  1:  .. loglikelihood=-654457.1455212828	0.2601510435608118
+  2:  .. loglikelihood=-239513.5583724216	0.9260037690044255
+  3:  .. loglikelihood=-141313.1386347238	0.9443387003074715
+  4:  .. loglikelihood=-101083.50853437989	0.954375209585929
+... cut lots of iterations ...
+498:  .. loglikelihood=-1710.8874647317095	0.9995040783650645
+499:  .. loglikelihood=-1708.0908900815848	0.9995040783650645
+500:  .. loglikelihood=-1705.3045902366732	0.9995040783650645
+Writing chunker model ... done (4.019s)
+
+Wrote chunker model to path: .\en-chunker.bin]]>
+		</screen>
+		</para>
+		</section>
+		<section id="tools.corpora.conll.2000.evaluation">
+		<title>Evaluating</title>
+		<para>
+		We evaluate the model using the file test.txt  available at CONLL 2000:
+		<screen>
+			<![CDATA[
+$ opennlp ChunkerEvaluator -model en-chunker.bin -lang en -encoding utf8 -data test.txt]]>
+		</screen>
+		<screen>
+			<![CDATA[
+Loading Chunker model ... done (0,665s)
+current: 85,8 sent/s avg: 85,8 sent/s total: 86 sent
+current: 88,1 sent/s avg: 87,0 sent/s total: 174 sent
+current: 156,2 sent/s avg: 110,0 sent/s total: 330 sent
+current: 192,2 sent/s avg: 130,5 sent/s total: 522 sent
+current: 167,2 sent/s avg: 137,8 sent/s total: 689 sent
+current: 179,2 sent/s avg: 144,6 sent/s total: 868 sent
+current: 183,2 sent/s avg: 150,3 sent/s total: 1052 sent
+current: 183,2 sent/s avg: 154,4 sent/s total: 1235 sent
+current: 169,2 sent/s avg: 156,0 sent/s total: 1404 sent
+current: 178,2 sent/s avg: 158,2 sent/s total: 1582 sent
+current: 172,2 sent/s avg: 159,4 sent/s total: 1754 sent
+current: 177,2 sent/s avg: 160,9 sent/s total: 1931 sent
+
+
+Average: 161,6 sent/s 
+Total: 2013 sent
+Runtime: 12.457s
+
+Precision: 0.9244354736974896
+Recall: 0.9216837162502096
+F-Measure: 0.9230575441395671]]>
+		</screen>
+		</para>
+		</section>
+	</section>
+		<section id="tools.corpora.conll.2002">
+		<title>CONLL 2002</title>
+		<para>
+		The shared task of CoNLL-2002 is language independent named entity recognition for Spanish and Dutch.
+		</para>
+		<section id="tools.corpora.conll.2002.getting">
+		<title>Getting the data</title>
+		<para>The data consists of three files per language: one training file and two test files testa and testb.
+		The first test file will be used in the development phase for finding good parameters for the learning system.
+		The second test file will be used for the final evaluation. Currently there are data files available for two languages:
+		Spanish and Dutch.
+		</para>
+		<para>
+		The Spanish data is a collection of news wire articles made available by the Spanish EFE News Agency. The articles are
+		from May 2000. The annotation was carried out by the <ulink url="http://www.talp.cat/">TALP Research Center</ulink> of the Technical University of Catalonia (UPC)
+		and the <ulink url="http://clic.ub.edu/">Center of Language and Computation (CLiC)</ulink>of the University of Barcelona (UB), and funded by the European Commission
+		through the NAMIC project (IST-1999-12392). 
+		</para>
+		<para>
+		The Dutch data consist of four editions of the Belgian newspaper "De Morgen" of 2000 (June 2, July 1, August 1 and September 1).
+		The data was annotated as a part of the <ulink url="http://atranos.esat.kuleuven.ac.be/">Atranos</ulink> project at the University of Antwerp. 
+		</para>
+		<para>
+		You can find the Spanish files here: 
+		<ulink url="http://www.lsi.upc.edu/~nlp/tools/nerc/nerc.html">http://www.lsi.upc.edu/~nlp/tools/nerc/nerc.html</ulink>
+		You must download esp.train.gz, unzip it and you will see the file esp.train.
+		</para>
+		<para>
+		You can find the Dutch files here: 
+		<ulink url="http://www.cnts.ua.ac.be/conll2002/ner.tgz">http://www.cnts.ua.ac.be/conll2002/ner.tgz</ulink>
+		You must unzip it and go to /ner/data/ned.train.gz, so you unzip it too, and you will see the file ned.train.
+		</para>
+		</section>
+		<section id="tools.corpora.conll.2002.converting">
+		<title>Converting the data</title>
+		<para>
+		I will use Spanish data as reference, but it would be the same operations to Dutch. You just must remember change “-lang es” to “-lang nl” and use
+		the correct training files. So to convert the information to the OpenNLP format: 
+		<screen>
+			<![CDATA[
+$ opennlp TokenNameFinderConverter conll02 -data esp.train -lang es -types per > es_corpus_train_persons.txt]]>
+		</screen>
+		Optionally, you can convert the training test samples as well.
+		<screen>
+			<![CDATA[
+$ opennlp TokenNameFinderConverter conll02 -data esp.testa -lang es -types per > corpus_testa.txt
+$ opennlp TokenNameFinderConverter conll02 -data esp.testb -lang es -types per > corpus_testb.txt]]>
+		</screen>
+		</para>
+		</section>
+		<section id="tools.corpora.conll.2002.training.spanish">
+		<title>Training with Spanish data</title>
+		<para>
+		To train the model for the name finder: 
+		<screen>
+			<![CDATA[
+\bin\opennlp TokenNameFinderTrainer -lang es -encoding u
+tf8 -iterations 500 -data es_corpus_train_persons.txt -model es_ner_person.bin
+
+
+Indexing events using cutoff of 5
+
+        Computing event counts...  done. 264715 events
+        Indexing...  done.
+Sorting and merging events... done. Reduced 264715 events to 222660.
+Done indexing.
+Incorporating indexed data for training...
+done.
+        Number of Event Tokens: 222660
+           Number of Outcomes: 3
+          Number of Predicates: 71514
+...done.
+Computing model parameters ...
+Performing 500 iterations.
+  1:  ... loglikelihood=-290819.1519958615      0.9689326256540053
+  2:  ... loglikelihood=-37097.17676455632      0.9689326256540053
+  3:  ... loglikelihood=-22910.372489660916     0.9706476776911017
+  4:  ... loglikelihood=-17091.547325669497     0.9777874317662392
+  5:  ... loglikelihood=-13797.620926769372     0.9833821279489262
+  6:  ... loglikelihood=-11715.806710780415     0.9867140131839903
+  7:  ... loglikelihood=-10289.222078246517     0.9886859452618855
+  8:  ... loglikelihood=-9249.208318314624      0.9902310031543358
+  9:  ... loglikelihood=-8454.169590899777      0.9913227433277298
+ 10:  ... loglikelihood=-7823.742997451327      0.9921953799369133
+ 11:  ... loglikelihood=-7309.375882641964      0.9928224694482746
+ 12:  ... loglikelihood=-6880.131972149693      0.9932946754056249
+ 13:  ... loglikelihood=-6515.3828767792365     0.993638441342576
+ 14:  ... loglikelihood=-6200.82723154046       0.9939595413935742
+ 15:  ... loglikelihood=-5926.213730444915      0.994269308501596
+ 16:  ... loglikelihood=-5683.9821840753275     0.9945299661900534
+ 17:  ... loglikelihood=-5468.4211798176075     0.9948246227074401
+ 18:  ... loglikelihood=-5275.127017232056      0.9950286156810154
+
+... cut lots of iterations ...
+
+491:  ... loglikelihood=-1174.8485558758211     0.998983812779782
+492:  ... loglikelihood=-1173.9971776942477     0.998983812779782
+493:  ... loglikelihood=-1173.1482915871768     0.998983812779782
+494:  ... loglikelihood=-1172.3018855781158     0.998983812779782
+495:  ... loglikelihood=-1171.457947774544      0.998983812779782
+496:  ... loglikelihood=-1170.6164663670502     0.998983812779782
+497:  ... loglikelihood=-1169.7774296286693     0.998983812779782
+498:  ... loglikelihood=-1168.94082591387       0.998983812779782
+499:  ... loglikelihood=-1168.1066436580463     0.9989875904274408
+500:  ... loglikelihood=-1167.2748713765225     0.9989875904274408
+Writing name finder model ... done (2,168s)
+
+Wrote name finder model to
+path: .\es_ner_person.bin]]>
+		</screen>
+		</para>
+		</section>
+		</section>
+		
+		<section id="tools.corpora.conll.2003">
+		<title>CONLL 2003</title>
+		<para>
+		The shared task of CoNLL-2003 is language independent named entity recognition
+		for English and German.
+		</para>
+		<section id="tools.corpora.conll.2003.getting">
+		<title>Getting the data</title>
+		<para>
+		The English data is the Reuters Corpus, which is a collection of news wire articles.
+		The Reuters Corpus can be obtained free of charges from the NIST for research
+		purposes: <ulink url="http://trec.nist.gov/data/reuters/reuters.html">http://trec.nist.gov/data/reuters/reuters.html</ulink>
+		</para>
+		<para>
+		The German data is a collection of articles from the German newspaper Frankfurter
+		Rundschau. The articles are part of the ECI Multilingual Text Corpus which
+		can be obtained for 75$ (2010) from the Linguistic Data Consortium:
+<ulink url="http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC94T5">http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC94T5</ulink>		</para>
+		<para>After one of the corpora is available the data must be
+		transformed as explained in the README file to the CONLL format.
+		The transformed data can be read by the OpenNLP CONLL03 converter.
+		</para>
+		</section>
+		<section id="tools.corpora.conll.2003.converting">
+		<title>Converting the data (optional)</title>
+		<para>
+		To convert the information to the OpenNLP format:
+		<screen>
+			<![CDATA[
+$ opennlp TokenNameFinderConverter conll03 -lang en -types per -data eng.train > corpus_train.txt]]>
+		</screen>
+		Optionally, you can convert the training test samples as well.
+		<screen>
+			<![CDATA[
+$ opennlp TokenNameFinderConverter conll03 -lang en -types per -data eng.testa > corpus_testa.txt
+$ opennlp TokenNameFinderConverter conll03 -lang en -types per -data eng.testb > corpus_testb.txt]]>
+		</screen>
+		</para>
+		</section>
+		<section id="tools.corpora.conll.2003.training.english">
+		<title>Training with English data</title>
+            <para>
+                You can train the model for the name finder this way:
+                <screen>
+                <![CDATA[
+$ opennlp TokenNameFinderTrainer.conll03 -model en_ner_person.bin -iterations 500 \
+                                 -lang en -types per -data eng.train -encoding utf8]]>
+                </screen>
+            </para>
+		    <para>
+                If you have converted the data, then you can train the model for the name finder this way:
+                <screen>
+                <![CDATA[
+$ opennlp TokenNameFinderTrainer -model en_ner_person.bin -iterations 500 \
+                                 -lang en -data corpus_train.txt -encoding utf8]]>
+		        </screen>
+            </para>
+            <para>
+                Either way you should see the following output during the training process:
+		        <screen>
+			    <![CDATA[
+Indexing events using cutoff of 5
+
+	Computing event counts...  done. 203621 events
+	Indexing...  done.
+Sorting and merging events... done. Reduced 203621 events to 179409.
+Done indexing.
+Incorporating indexed data for training...  
+done.
+	Number of Event Tokens: 179409
+	    Number of Outcomes: 3
+	  Number of Predicates: 58814
+...done.
+Computing model parameters...
+Performing 500 iterations.
+  1:  .. loglikelihood=-223700.5328318588	0.9453494482396216
+  2:  .. loglikelihood=-40525.939777363084	0.9467933071736215
+  3:  .. loglikelihood=-24893.98837874921	0.9598518816821447
+  4:  .. loglikelihood=-18420.3379471033	0.9712996203731442
+... cut lots of iterations ...
+498:  .. loglikelihood=-952.8501399442295	0.9988950059178572
+499:  .. loglikelihood=-952.0600155746948	0.9988950059178572
+500:  .. loglikelihood=-951.2722802086295	0.9988950059178572
+Writing name finder model ... done (1.638s)
+
+Wrote name finder model to
+path: .\en_ner_person.bin]]>
+		        </screen>
+		    </para>
+		</section>
+		<section id="tools.corpora.conll.2003.evaluation.english">
+		<title>Evaluating with English data</title>
+            <para>
+                You can evaluate the model for the name finder this way:
+                <screen>
+                <![CDATA[
+$ opennlp TokenNameFinderEvaluator.conll03 -model en_ner_person.bin \
+                                   -lang en -types per -data eng.testa -encoding utf8]]>
+                </screen>
+            </para>
+		    <para>
+		        If you converted the test A and B files above, you can use them to evaluate the
+                model.
+		        <screen>
+			<![CDATA[
+$ opennlp TokenNameFinderEvaluator -model en_ner_person.bin -lang en -data corpus_testa.txt \
+                                   -encoding utf8]]>
+		        </screen>
+            </para>
+            <para>
+                Either way you should see the following output:
+		        <screen>
+			<![CDATA[
+Loading Token Name Finder model ... done (0.359s)
+current: 190.2 sent/s avg: 190.2 sent/s total: 199 sent
+current: 648.3 sent/s avg: 415.9 sent/s total: 850 sent
+current: 530.1 sent/s avg: 453.6 sent/s total: 1380 sent
+current: 793.8 sent/s avg: 539.0 sent/s total: 2178 sent
+current: 705.4 sent/s avg: 571.9 sent/s total: 2882 sent
+
+
+Average: 569.4 sent/s
+Total: 3251 sent
+Runtime: 5.71s
+
+Precision: 0.9366247297154147
+Recall: 0.739956568946797
+F-Measure: 0.8267557582133971]]>
+		</screen>
+		</para>
+		</section>
+	</section>
+	</section>
+	<section id="tools.corpora.arvores-deitadas">
+		<title>Arvores Deitadas</title>
+		<para>
+		The Portuguese corpora available at <ulink url="http://www.linguateca.pt">Floresta Sintá(c)tica</ulink> project follow the Arvores Deitadas (AD) format. Apache OpenNLP includes tools to convert from AD format to native format.  
+		</para>		
+		<section id="tools.corpora.arvores-deitadas.getting">
+			<title>Getting the data</title>
+			<para>
+			The Corpus can be downloaded from here: <ulink url="http://www.linguateca.pt/floresta/corpus.html">http://www.linguateca.pt/floresta/corpus.html</ulink>
+			</para>
+			<para>
+			The Name Finder models were trained using the Amazonia corpus: <ulink url="http://www.linguateca.pt/floresta/ficheiros/gz/amazonia.ad.gz">amazonia.ad</ulink>.
+			The Chunker models were trained using the <ulink url="http://www.linguateca.pt/floresta/ficheiros/gz/Bosque_CF_8.0.ad.txt.gz">Bosque_CF_8.0.ad</ulink>.
+			</para>
+		</section>
+		
+		<section id="tools.corpora.arvores-deitadas.converting">
+			<title>Converting the data (optional)</title>
+			    <para>
+				    To extract NameFinder training data from Amazonia corpus:
+			        <screen>
+			        <![CDATA[
+$ opennlp TokenNameFinderConverter ad -lang pt -encoding ISO-8859-1 -data amazonia.ad > corpus.txt]]>
+			        </screen>
+			</para>
+			<para>
+				To extract Chunker training data from Bosque_CF_8.0.ad corpus:
+			    <screen>
+			    <![CDATA[
+$ opennlp ChunkerConverter ad -lang pt -data Bosque_CF_8.0.ad.txt -encoding ISO-8859-1 > bosque-chunk]]>
+    			</screen>
+			</para>
+		</section>
+		<section id="tools.corpora.arvores-deitadas.evaluation">
+			<title>Training and Evaluation</title>
+			    <para>
+			        To perform the evaluation the corpus was split into a training and a test part.
+			        <screen>
+			        <![CDATA[
+$ sed '1,55172d' corpus.txt > corpus_train.txt
+$ sed '55172,100000000d' corpus.txt > corpus_test.txt]]>
+        			</screen>
+        			<screen>
+        			<![CDATA[
+$ opennlp TokenNameFinderTrainer -model pt-ner.bin -cutoff 20 -lang PT -data corpus_train.txt -encoding UTF-8
+...
+$ opennlp TokenNameFinderEvaluator -model pt-ner.bin -lang PT -data corpus_train.txt -encoding UTF-8
+
+Precision: 0.8005071889818507
+Recall: 0.7450581122145297
+F-Measure: 0.7717879983140168]]>
+			</screen>
+			</para>
+		</section>
+	</section>
+	<section id="tools.corpora.leipzig">
+	<title>Leipzig Corpora</title>
+	<para>
+	The Leipzig Corpora collection presents corpora in different languages. The corpora is a collection of individual sentences collected
+	from the web and newspapers. The Corpora is available as plain text and as MySQL database tables. The OpenNLP integration can only
+	use the plain text version.
+	</para>
+	<para>
+	The corpora in the different languages can be used to train a document categorizer model which can detect the document language. 
+	The	individual plain text packages can be downloaded here:
+	<ulink url="http://corpora.uni-leipzig.de/download.html">http://corpora.uni-leipzig.de/download.html</ulink>
+	</para>
+	
+	<para>
+	After all packages have been downloaded, unzip them and use the following commands to
+	produce a training file which can be processed by the Document Categorizer:
+	<screen>
+			<![CDATA[
+$ opennlp DoccatConverter leipzig -lang cat -data Leipzig/cat100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang de -data Leipzig/de100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang dk -data Leipzig/dk100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang ee -data Leipzig/ee100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang en -data Leipzig/en100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang fi -data Leipzig/fi100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang fr -data Leipzig/fr100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang it -data Leipzig/it100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang jp -data Leipzig/jp100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang kr -data Leipzig/kr100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang nl -data Leipzig/nl100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang no -data Leipzig/no100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang se -data Leipzig/se100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang sorb -data Leipzig/sorb100k/sentences.txt >> lang.train
+$ opennlp DoccatConverter leipzig -lang tr -data Leipzig/tr100k/sentences.txt >> lang.train]]>
+	</screen>
+	</para>
+	<para>
+	Depending on your platform local it might be problematic to output characters which are not supported by that encoding,
+	we suggest to run these command on a platform which has a unicode default encoding, e.g. Linux with UTF-8.
+	</para>
+	<para>
+	After the lang.train file is created the actual language detection document categorizer model
+	can be created with the following command.
+	<screen>
+			<![CDATA[
+$ opennlp DoccatTrainer -model lang.model -lang x-unspecified -data lang.train -encoding MacRoman
+
+Indexing events using cutoff of 5
+
+	Computing event counts...  done. 10000 events
+	Indexing...  done.
+Sorting and merging events... done. Reduced 10000 events to 10000.
+Done indexing.
+Incorporating indexed data for training...  
+done.
+	Number of Event Tokens: 10000
+	    Number of Outcomes: 2
+	  Number of Predicates: 42730
+...done.
+Computing model parameters...
+Performing 100 iterations.
+  1:  .. loglikelihood=-6931.471805600547	0.5
+  2:  .. loglikelihood=-2110.9654348555955	1.0
+... cut lots of iterations ...
+
+ 99:  .. loglikelihood=-0.449640418555347	1.0
+100:  .. loglikelihood=-0.443746359746235	1.0
+Writing document categorizer model ... done (1.210s)
+
+Wrote document categorizer model to
+path: /Users/joern/dev/opennlp-apache/opennlp/opennlp-tools/lang.model
+]]>
+	</screen>
+	In the sample above the language detection model was trained to distinguish two languages, danish and english.
+	</para>
+	
+	<para>
+	After the model is created it can be used to detect the two languages:
+	
+	<programlisting>
+			<![CDATA[
+$ bin/opennlp Doccat ../lang.
+lang.model  lang.train  
+karkand:opennlp-tools joern$ bin/opennlp Doccat ../lang.model
+Loading Document Categorizer model ... done (0.289s)
+The American Finance Association is pleased to announce the award of ...
+en	The American Finance Association is pleased to announce the award of ..
+.
+Danskerne skal betale for den økonomiske krise ved at blive længere på arbejdsmarkedet .
+dk	Danskerne skal betale for den økonomiske krise ved at blive længere på arbejdsmarkedet .]]>	
+	</programlisting>
+	</para>
+	</section>
+</chapter>

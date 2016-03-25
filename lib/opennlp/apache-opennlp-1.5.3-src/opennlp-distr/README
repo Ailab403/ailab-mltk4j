@@ -1,0 +1,50 @@
+Apache OpenNLP ${pom.version}
+===============================
+
+
+Building from the Source Distribution
+-------------------------------------
+
+At least Maven 3.0.0 is required for building.
+
+To build everything go into the opennlp directory and run the following command:
+    mvn clean install
+   
+The results of the build will be placed  in:
+    opennlp-distr/target/apache-opennlp-[version]-bin.tar-gz (or .zip)
+
+What is new in Apache OpenNLP ${pom.version}
+---------------------------------------
+
+This release contains a couple of new features, improvements and bug fixes. The CLI
+has been improved for a better consistency. Now the tools supports extensions that
+can be configured from the model, including customized context generators and
+validators.
+
+Additionally the release contains the following noteworthy changes:
+
+- Porter Stemmer tool
+- L-BFGS parameter estimation
+- Improved documentation
+- Fine-grained POSTagger evaluation report
+- Improved support to load user provided feature generator and context validation
+  classes from OSGi environment
+
+A detailed list of the issues related to this release can be found in the release
+notes.
+
+Requirements
+------------
+Java 1.5 is required to run OpenNLP
+Maven 3.0.0 is required for building it
+
+Known OSGi Issues
+------------
+In an OSGi environment the following things are not supported:
+- The coreference resolution component
+
+Note
+----
+The current API contains still many deprecated methods, these
+will be removed in one of our next releases, please
+migrate to our new API.
