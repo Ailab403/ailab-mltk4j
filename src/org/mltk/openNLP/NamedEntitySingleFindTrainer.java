@@ -44,14 +44,15 @@ public class NamedEntitySingleFindTrainer {
 				new WindowFeatureGenerator(new TokenFeatureGenerator(), 2, 2),
 				new WindowFeatureGenerator(new TokenClassFeatureGenerator(), 2,
 						2), new PreviousMapFeatureGenerator());
-		
+
 		return featureGenerators;
 	}
 
-	// test function part time
-	public static void main(String[] args) {
-
-	}
+	/**
+	 * TODO Î´Íê³É
+	 * 
+	 * @return
+	 */
 
 	public int getIterations() {
 		return iterations;
