@@ -97,7 +97,7 @@ public class NameEntityTextFactory {
 	public static String getNameType(File nameListFile) {
 		String nameType = nameListFile.getName();
 
-		return nameType.substring(0, nameType.lastIndexOf(".") - 1);
+		return nameType.substring(0, nameType.lastIndexOf("."));
 	}
 
 	/**
@@ -146,29 +146,31 @@ public class NameEntityTextFactory {
 			nameWordsList = loadNameWords(nameListFile);
 			String nameType = getNameType(nameListFile);
 			for (String nameWord : nameWordsList) {
-				String replacement = "<START:" + nameType + ">" + nameWord
-						+ "<END>";
+				String replacement = "<START:" + nameType + "> " + nameWord
+						+ " <END>";
 				tagCorpusStr = tagCorpusStr.replaceAll(nameWord, replacement);
 			}
 		} else {
 			// 有多种类型的词库情况
 			for (File eachNameFile : nameListFile.listFiles()) {
 
-				// TODO 下面这个部分需要抽象化处理
+				// TODO 下面这个部分需要抽象化处理，另外要防止不同词库出现相同词的情况
 
 				nameWordsList = loadNameWords(eachNameFile);
 				String nameType = getNameType(eachNameFile);
 				for (String nameWord : nameWordsList) {
-					String replacement = "<START:" + nameType + ">" + nameWord
-							+ "<END>";
-					tagCorpusStr = tagCorpusStr.replaceAll(nameWord,
-							replacement);
+					// ps：[空格]特殊字符串处理
+					// TODO 需要从分词器查明原因
+					String replacement = " <START:" + nameType + "> "
+							+ nameWord + " <END> ";
+					tagCorpusStr = tagCorpusStr.replaceAll(
+							" " + nameWord + " ", replacement);
 				}
 			}
 		}
 
 		// 重新写入文件
-		if (tagCorpusStr != null) {
+		if (trainDataPath != null) {
 			writeIntoFile(trainDataPath, tagCorpusStr);
 		}
 

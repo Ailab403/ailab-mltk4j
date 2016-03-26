@@ -2,6 +2,7 @@ package org.mltk.openNLP;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.Collections;
 
@@ -111,26 +112,23 @@ public class NamedEntityMultiFindTrainer {
 	 * @param trainDataStr
 	 *            已标注的训练数据整体字符串
 	 * @return
+	 * @throws Exception
 	 */
-	public TokenNameFinderModel trainNameEntitySamples(String trainDataStr) {
-		try {
-			ObjectStream<NameSample> nameEntitySample = new NameSampleDataStream(
-					new PlainTextByLineStream(new StringReader(trainDataStr)));
+	public TokenNameFinderModel trainNameEntitySamples(String trainDataStr)
+			throws Exception {
+		ObjectStream<NameSample> nameEntitySample = new NameSampleDataStream(
+				new PlainTextByLineStream(new StringReader(trainDataStr)));
+		
+		System.out.println("**************************************");
+		System.out.println(trainDataStr);
 
-			TokenNameFinderModel nameFinderModel = NameFinderME.train(
-					this.getLangCode(), this.getType(), nameEntitySample,
-					this.prodFeatureGenerators(),
-					Collections.<String, Object> emptyMap(),
-					this.getIterations(), this.getCutoff());
+		TokenNameFinderModel nameFinderModel = NameFinderME.train(
+				this.getLangCode(), this.getType(), nameEntitySample,
+				this.prodFeatureGenerators(),
+				Collections.<String, Object> emptyMap(), this.getIterations(),
+				this.getCutoff());
 
-			return nameFinderModel;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-			return null;
-		}
-
+		return nameFinderModel;
 	}
 
 	/**
@@ -144,6 +142,7 @@ public class NamedEntityMultiFindTrainer {
 			String trainDataStr = this.getTrainCorpusDataStr();
 			TokenNameFinderModel nameFinderModel = this
 					.trainNameEntitySamples(trainDataStr);
+			// System.out.println(nameFinderModel);
 			this.writeModelIntoDisk(nameFinderModel);
 
 			return true;

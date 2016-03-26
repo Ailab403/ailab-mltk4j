@@ -2,6 +2,7 @@ package org.mltk.openNLP;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -11,7 +12,7 @@ import opennlp.tools.tokenize.SimpleTokenizer;
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.util.Span;
 
-public class NameEntityFinder {
+public class NameEntityFindTester {
 
 	// Ä¬ÈÏ²ÎÊý
 	private double probThreshold = 0.6;
@@ -19,18 +20,18 @@ public class NameEntityFinder {
 	private String modelPath;
 	private String testFileDirPath;
 
-	public NameEntityFinder() {
+	public NameEntityFindTester() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public NameEntityFinder(String modelPath, String testFileDirPath) {
+	public NameEntityFindTester(String modelPath, String testFileDirPath) {
 		super();
 		this.modelPath = modelPath;
 		this.testFileDirPath = testFileDirPath;
 	}
 
-	public NameEntityFinder(double probThreshold, String modelPath,
+	public NameEntityFindTester(double probThreshold, String modelPath,
 			String testFileDirPath) {
 		super();
 		this.probThreshold = probThreshold;
@@ -60,7 +61,7 @@ public class NameEntityFinder {
 	 */
 	public Map<String, String> cptBasicNameProb(NameFinderME finder)
 			throws Exception {
-		Map<String, String> basicNameProbResMap = new HashMap<String, String>();
+		Map<String, String> basicNameProbResMap = new IdentityHashMap<String, String>();
 		String testContent = NameEntityTextFactory.loadFileTextDir(this
 				.getTestFileDirPath());
 
@@ -71,10 +72,21 @@ public class NameEntityFinder {
 		Span[] names = finder.find(tokens);
 		double[] nameSpanProbs = finder.probs(names);
 
-		for (int i = 0; i < tokens.length; i++) {
-			String testToken = tokens[i];
+		System.out.println("tokens size: " + tokens.length);
+		System.out.println("names size: " + names.length);
+		System.out.println("name_span_probs size: " + nameSpanProbs.length);
+
+		for (int i = 0; i < names.length; i++) {
+			String testToken = "";
+			for (int j = names[i].getStart(); j <= names[i].getEnd() - 1; j++) {
+				testToken += tokens[j];
+			}
 			String testRes = names[i].getType() + ":"
 					+ Double.toString(nameSpanProbs[i]);
+
+			// TODO delete print
+			System.out.println("find name: \"" + testToken + "\" has res: "
+					+ testRes);
 
 			basicNameProbResMap.put(testToken, testRes);
 		}
