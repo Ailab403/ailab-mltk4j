@@ -32,27 +32,32 @@ public class NamedEntityMultiFindTrainer {
 	private String type = "default";
 
 	// 待设定的参数
-	private String dataPath;
-	private String modelPath;
+	private String nameWordsPath; // 命名实体词库路径
+	private String dataPath; // 训练集已分词语料路径
+	private String modelPath; // 模型存储路径
 
 	public NamedEntityMultiFindTrainer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public NamedEntityMultiFindTrainer(String dataPath, String modelPath) {
+	public NamedEntityMultiFindTrainer(String nameWordsPath, String dataPath,
+			String modelPath) {
 		super();
+		this.nameWordsPath = nameWordsPath;
 		this.dataPath = dataPath;
 		this.modelPath = modelPath;
 	}
 
 	public NamedEntityMultiFindTrainer(int iterations, int cutoff,
-			String langCode, String type, String dataPath, String modelPath) {
+			String langCode, String type, String nameWordsPath,
+			String dataPath, String modelPath) {
 		super();
 		this.iterations = iterations;
 		this.cutoff = cutoff;
 		this.langCode = langCode;
 		this.type = type;
+		this.nameWordsPath = nameWordsPath;
 		this.dataPath = dataPath;
 		this.modelPath = modelPath;
 	}
@@ -84,12 +89,30 @@ public class NamedEntityMultiFindTrainer {
 	}
 
 	/**
+	 * 读出标注的训练语料
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String getTrainCorpusDataStr() throws Exception {
+
+		// TODO 考虑入持久化判断直接载入标注数据的情况 以及增量式训练
+
+		String trainDataStr = null;
+		trainDataStr = NameEntityTextFactory.prodNameFindTrainText(
+				this.getNameWordsPath(), this.getDataPath(), null);
+
+		return trainDataStr;
+	}
+
+	/**
 	 * 训练模型
 	 * 
 	 * @param trainDataStr
+	 *            已标注的训练数据整体字符串
 	 * @return
 	 */
-	public boolean trainNameEntitySamples(String trainDataStr) {
+	public TokenNameFinderModel trainNameEntitySamples(String trainDataStr) {
 		try {
 			ObjectStream<NameSample> nameEntitySample = new NameSampleDataStream(
 					new PlainTextByLineStream(new StringReader(trainDataStr)));
@@ -100,7 +123,27 @@ public class NamedEntityMultiFindTrainer {
 					Collections.<String, Object> emptyMap(),
 					this.getIterations(), this.getCutoff());
 
-			// 得到模型写入磁盘
+			return nameFinderModel;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+			return null;
+		}
+
+	}
+
+	/**
+	 * 训练组件总调用方法
+	 * 
+	 * @return
+	 */
+	public boolean execNameFindTrainer() {
+
+		try {
+			String trainDataStr = this.getTrainCorpusDataStr();
+			TokenNameFinderModel nameFinderModel = this
+					.trainNameEntitySamples(trainDataStr);
 			this.writeModelIntoDisk(nameFinderModel);
 
 			return true;
@@ -110,17 +153,9 @@ public class NamedEntityMultiFindTrainer {
 
 			return false;
 		}
-
 	}
 
-	/**
-	 * test function part time
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-	}
+	/* -------------------------getter & setter------------------------- */
 
 	public int getIterations() {
 		return iterations;
@@ -168,6 +203,14 @@ public class NamedEntityMultiFindTrainer {
 
 	public void setModelPath(String modelPath) {
 		this.modelPath = modelPath;
+	}
+
+	public String getNameWordsPath() {
+		return nameWordsPath;
+	}
+
+	public void setNameWordsPath(String nameWordsPath) {
+		this.nameWordsPath = nameWordsPath;
 	}
 
 }
