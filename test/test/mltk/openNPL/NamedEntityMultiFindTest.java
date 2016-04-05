@@ -10,7 +10,7 @@ import org.mltk.lucene.seg.TokenSegFolderFileRecursion;
 import org.mltk.openNLP.NameEntityFindTester;
 import org.mltk.openNLP.NamedEntityMultiFindTrainer;
 
-public class NamedEntityMultiFindTrainerTest {
+public class NamedEntityMultiFindTest {
 
 	@Test
 	public void testSegWord() {
